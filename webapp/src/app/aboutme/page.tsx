@@ -50,7 +50,7 @@ export default function AboutMe() {
                     <div className="space-y-4 text-lg text-gray-400">
                         <p>
                             Former data scientist who found their passion in building AI-powered tools
-                            that people actually use. When I'm not coding, you'll find me rock climbing
+                            that people actually use. When Im not coding, youll find me rock climbing
                             or diving into a new tech rabbit hole.
                         </p>
                         <p>
