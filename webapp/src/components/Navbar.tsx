@@ -9,8 +9,8 @@ export default function Navbar() {
                 </Link>
 
                 <div className="flex gap-8">
-                    <Link href="/aboutme" className="hover:text-gray-400">
-                        About Me
+                    <Link href="/timeline" className="hover:text-gray-400">
+                        Timeline
                     </Link>
                     <Link href="/projects" className="hover:text-gray-400">
                         Projects
