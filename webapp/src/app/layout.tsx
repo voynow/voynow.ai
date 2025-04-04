@@ -1,16 +1,18 @@
 import Navbar from '@/components/Navbar';
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -29,22 +31,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         <Navbar />
         {children}
-        <footer className="border-t border-gray-800">
-          <div className="px-6 py-12 md:px-24 max-w-5xl mx-auto">
-            <div className="flex gap-6 mb-6">
-              <a href="https://twitter.com/yourusername" className="text-gray-400 hover:text-white">Twitter</a>
-              <a href="https://github.com/yourusername" className="text-gray-400 hover:text-white">GitHub</a>
-            </div>
-            <div className="text-sm text-gray-400">
-              © {new Date().getFullYear()} Jamie Voynow
-            </div>
-          </div>
-        </footer>
       </body>
     </html>
   );

@@ -1,23 +1,41 @@
-import Link from 'next/link';
+import { FaGithub, FaTwitter } from 'react-icons/fa';
 
+type SocialLink = {
+    name: string;
+    url: string;
+    icon: React.ReactNode;
+};
+
+/** Simple navigation bar with social media icons */
 export default function Navbar() {
-    return (
-        <nav className="fixed top-0 left-0 right-0 bg-black/80 backdrop-blur-sm z-50 border-b border-gray-800">
-            <div className="px-6 md:px-24 max-w-5xl mx-auto h-16 flex items-center justify-between">
-                <Link href="/" className="font-semibold hover:text-gray-400">
-                    Jamie Voynow
-                </Link>
+    const socialLinks: SocialLink[] = [
+        {
+            name: 'Twitter',
+            url: 'https://twitter.com/yourusername',
+            icon: <FaTwitter size={25} />
+        },
+        {
+            name: 'GitHub',
+            url: 'https://github.com/yourusername',
+            icon: <FaGithub size={25} />
+        }
+    ];
 
-                <div className="flex gap-8">
-                    <Link href="/timeline" className="hover:text-gray-400">
-                        Timeline
-                    </Link>
-                    <Link href="/projects" className="hover:text-gray-400">
-                        Projects
-                    </Link>
-                    <Link href="/writing" className="hover:text-gray-400">
-                        Writing
-                    </Link>
+    return (
+        <nav className="fixed top-0 left-0 right-0 bg-black/80 backdrop-blur-sm z-50">
+            <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
+                <div className="text-xl text-gray-400 font-bold">Hey Yall 👋</div>
+                <div className="flex items-center gap-4">
+                    {socialLinks.map(({ name, url, icon }) => (
+                        <a
+                            key={name}
+                            href={url}
+                            className="text-gray-400 hover:text-white transition-colors p-2"
+                            aria-label={name}
+                        >
+                            {icon}
+                        </a>
+                    ))}
                 </div>
             </div>
         </nav>
