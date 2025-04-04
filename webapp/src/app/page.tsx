@@ -56,32 +56,50 @@ function Navbar() {
 const TimelineItem = ({ item, index }: { item: CoolStuff; index: number }) => {
   const formattedDate = new Date(item.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 
-  const dotColor = {
-    'project': 'bg-blue-500',
-    'article': 'bg-green-500',
-    'tweet': 'bg-yellow-400',
-    'life event': 'bg-red-500'
-  }[item.category] || 'bg-red-500';
+  const categoryColors: Record<string, string> = {
+    'project': 'from-blue-500/10 to-blue-500/5',
+    'article': 'from-purple-500/10 to-purple-500/5',
+    'tweet': 'from-red-400/10 to-red-400/5',
+    'race': 'from-gray-500/10 to-gray-500/5',
+    'life event': 'from-red-500/10 to-red-500/5'
+  };
+
+  const accentColor = {
+    'project': 'border-blue-500/50 text-blue-400',
+    'article': 'border-purple-500/50 text-purple-400',
+    'tweet': 'border-red-400/50 text-red-300',
+    'race': 'border-gray-500/50 text-gray-400',
+    'life event': 'border-red-500/50 text-red-400'
+  }[item.category] || 'border-red-500/50 text-red-400';
+
+  const borderColor = {
+    'project': 'border-blue-500',
+    'article': 'border-purple-500',
+    'tweet': 'border-red-400',
+    'race': 'border-gray-500',
+    'life event': 'border-red-500'
+  }[item.category] || 'border-red-500';
 
   return (
-    <div className={`group relative flex items-start gap-8 py-10 ${index !== 0 ? 'border-t border-gray-800' : ''}`}>
-      <div className="w-24 shrink-0 text-sm font-mono text-gray-500">{formattedDate}</div>
-      <div className="relative mt-1">
-        <div className={`w-3 h-3 rounded-full ${dotColor}`} />
-      </div>
-      <div className="flex-1 space-y-2">
-        <div className="block group-hover:brightness-125 group-hover:scale-101 transition-all duration-300">
-          <a href={item.link} target="_blank" className="block">
-            <h3 className="text-xl font-bold tracking-tight text-gray-300">{item.title}</h3>
-            <p className="mt-2 text-gray-400">{item.description}</p>
+    <div className="group w-full mb-20 flex justify-center">
+      <div className={`relative w-full max-w-6xl bg-gradient-to-br ${categoryColors[item.category] || 'from-red-500/10 to-red-500/5'} rounded-2xl p-12 transition-all duration-500 hover:scale-[1.02] border border-neutral-800 hover:border-neutral-700`}>
+        <div className={`absolute -top-4 left-1/2 -translate-x-1/2 font-mono text-sm tracking-wider uppercase ${accentColor} bg-neutral-900 px-4 py-1.5 rounded-full border-2 ${borderColor} shadow-lg`}>
+          {formattedDate}
+        </div>
+
+        <div className="p-4 flex flex-col items-center text-center">
+          <a href={item.link} target="_blank" className="block group-hover:opacity-100 transition-opacity">
+            <h3 className="text-4xl font-bold tracking-tight text-white mb-6">{item.title}</h3>
+            <p className="text-xl text-gray-300 leading-relaxed max-w-2xl">{item.description}</p>
           </a>
-          <div className="mt-4 flex items-center gap-4">
-            <span className="uppercase text-xs font-bold tracking-wider px-2 py-1 rounded bg-gray-800 text-gray-400">
+
+          <div className="mt-40 flex items-center gap-6">
+            <span className={`uppercase text-xs font-bold tracking-wider px-3 py-1.5 rounded-full bg-neutral-900 backdrop-blur-sm ${accentColor}`}>
               {item.category}
             </span>
             {item.github_link && (
               <a href={item.github_link} target="_blank"
-                className="text-gray-500 bg-gray-900 hover:text-gray-400 hover:bg-gray-800 transition-all duration-300 px-2 py-1 rounded-md flex items-center gap-1 text-sm">
+                className="bg-neutral-900 hover:opacity-80 transition-opacity px-3 py-1.5 rounded-full flex items-center gap-2 text-sm text-gray-300 border border-neutral-800">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
                 </svg>
@@ -138,7 +156,7 @@ const COOL_STUFF: CoolStuff[] = [
     title: "20 min+ Marathon PR",
     description: "Competed in my second marathon, the Philadelphia Marathon, and finished in under 4 hours for the first time.",
     link: "https://www.strava.com/activities/12974216838",
-    category: "life event"
+    category: "race"
   }
 ];
 
@@ -167,8 +185,8 @@ export default function Home() {
           <Image src="/headshot.jpeg" alt="Jamie Voynow" fill className="object-cover" priority />
         </div>
 
-        <h1 className="mt-6 text-6xl text-gray-300 font-bold tracking-tighter">Jamie Voynow</h1>
-        <p className="mt-4 text-2xl font-bold text-gray-500 text-center max-w-2xl">ML Engineer // Builder</p>
+        <h1 className="mt-6 text-5xl text-gray-300 font-bold tracking-tighter">Jamie Voynow</h1>
+        <p className="mt-2 text-xl font-bold text-gray-500 text-center max-w-2xl">ML Engineer // Builder</p>
 
         <p className="mt-12 text-lg text-gray-300 leading-relaxed mb-8 text-center max-w-2xl">
           ML Engineer, Builder, & Founder. Built and launched <a href="https://chatwithjfkfiles.com" className="text-blue-400 hover:underline">chatwithjfkfiles.com</a> in less than 4 hours. Training for the NYC Marathon.
@@ -187,7 +205,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="w-full max-w-4xl mx-auto px-6 py-8">
+      <section className="w-full px-6 py-24">
         <div className="relative">
           <div className="space-y-2">
             {COOL_STUFF.map((item, index) => (
