@@ -53,7 +53,7 @@ function Navbar() {
 }
 
 /** Timeline item showing a project, article, tweet or life event */
-const TimelineItem = ({ item, index }: { item: CoolStuff; index: number }) => {
+const TimelineItem = ({ item }: { item: CoolStuff }) => {
   const formattedDate = new Date(item.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 
   const categoryColors: Record<string, string> = {
@@ -208,8 +208,8 @@ export default function Home() {
       <section className="w-full px-6 py-24">
         <div className="relative">
           <div className="space-y-2">
-            {COOL_STUFF.map((item, index) => (
-              <TimelineItem key={item.title} item={item} index={index} />
+            {COOL_STUFF.map((item) => (
+              <TimelineItem key={item.title} item={item} />
             ))}
           </div>
         </div>
