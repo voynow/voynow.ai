@@ -1,3 +1,6 @@
+'use client';
+
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { FaGithub, FaTwitter } from 'react-icons/fa';
 
@@ -16,102 +19,100 @@ type CoolStuff = {
   github_link?: string;
 };
 
-/** Simple navigation bar with social media icons */
+/** Refined navigation with subtle animations */
 function Navbar() {
   const socialLinks: SocialLink[] = [
-    {
-      name: 'Twitter',
-      url: 'https://twitter.com/jamievoynow',
-      icon: <FaTwitter size={25} />
-    },
-    {
-      name: 'GitHub',
-      url: 'https://github.com/voynow',
-      icon: <FaGithub size={25} />
-    }
+    { name: 'Twitter', url: 'https://twitter.com/jamievoynow', icon: <FaTwitter size={20} /> },
+    { name: 'GitHub', url: 'https://github.com/voynow', icon: <FaGithub size={20} /> }
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-neutral-950/80 backdrop-blur-sm z-50">
-      <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
-        <div className="text-xl text-gray-400 font-bold">Jamie Voynow</div>
-        <div className="flex items-center gap-4">
-          {socialLinks.map(({ name, url, icon }) => (
-            <a
-              key={name}
-              href={url}
-              className="text-gray-400 hover:text-white transition-colors p-2"
-              aria-label={name}
-            >
-              {icon}
-            </a>
-          ))}
+    <motion.header
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="fixed top-0 left-0 right-0 z-50"
+    >
+      <nav className="h-20 backdrop-blur-md bg-black/60 border-b border-white/[0.06]">
+        <div className="max-w-5xl mx-auto px-6 h-full flex items-center justify-between">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="text-lg font-medium"
+          >
+            Hey Yall 👋
+          </motion.div>
+          <div className="flex items-center gap-6">
+            {socialLinks.map(({ name, url, icon }) => (
+              <motion.a
+                key={name}
+                whileHover={{ scale: 1.1 }}
+                href={url}
+                className="p-3 rounded-full hover:bg-white/[0.06] text-white/60 hover:text-white transition-all"
+                aria-label={name}
+              >
+                {icon}
+              </motion.a>
+            ))}
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </motion.header>
   );
 }
 
-/** Timeline item showing a project, article, tweet or life event */
-const TimelineItem = ({ item }: { item: CoolStuff }) => {
-  const formattedDate = new Date(item.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
-
-  const categoryColors: Record<string, string> = {
-    'project': 'from-blue-500/10 to-blue-500/5',
-    'article': 'from-purple-500/10 to-purple-500/5',
-    'tweet': 'from-red-400/10 to-red-400/5',
-    'race': 'from-gray-500/10 to-gray-500/5',
-    'life event': 'from-red-500/10 to-red-500/5'
-  };
-
-  const accentColor = {
-    'project': 'border-blue-500/50 text-blue-400',
-    'article': 'border-purple-500/50 text-purple-400',
-    'tweet': 'border-red-400/50 text-red-300',
-    'race': 'border-gray-500/50 text-gray-400',
-    'life event': 'border-red-500/50 text-red-400'
-  }[item.category] || 'border-red-500/50 text-red-400';
-
-  const borderColor = {
-    'project': 'border-blue-500',
-    'article': 'border-purple-500',
-    'tweet': 'border-red-400',
-    'race': 'border-gray-500',
-    'life event': 'border-red-500'
-  }[item.category] || 'border-red-500';
+/** Enhanced timeline item with modern styling */
+const TimelineItem = ({ item, index }: { item: CoolStuff; index: number }) => {
+  const formattedDate = new Date(item.date).toLocaleDateString('en-US', {
+    month: 'short',
+    year: 'numeric'
+  });
 
   return (
-    <div className="group w-full mb-20 flex justify-center">
-      <div className={`relative w-full max-w-6xl bg-gradient-to-br ${categoryColors[item.category] || 'from-red-500/10 to-red-500/5'} rounded-2xl p-12 transition-all duration-500 hover:scale-[1.02] border border-neutral-800 hover:border-neutral-700`}>
-        <div className={`absolute -top-4 left-1/2 -translate-x-1/2 font-mono text-sm tracking-wider uppercase ${accentColor} bg-neutral-900 px-4 py-1.5 rounded-full border-2 ${borderColor} shadow-lg`}>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.1 }}
+      className="group"
+    >
+      <div className="relative w-full max-w-5xl mx-auto p-8 rounded-2xl transition-all duration-300
+                    bg-gradient-to-br from-white/[0.02] to-transparent
+                    hover:from-white/[0.04] hover:to-transparent
+                    border border-white/[0.06] hover:border-white/[0.1]">
+        <div className="absolute -top-3 left-8 px-4 py-1 rounded-full 
+                      bg-black border border-white/[0.06]
+                      font-mono text-xs tracking-wider text-white/40">
           {formattedDate}
         </div>
 
-        <div className="p-4 flex flex-col items-center text-center">
-          <a href={item.link} target="_blank" className="block group-hover:opacity-100 transition-opacity">
-            <h3 className="text-4xl font-bold tracking-tight text-white mb-6">{item.title}</h3>
-            <p className="text-xl text-gray-300 leading-relaxed max-w-2xl">{item.description}</p>
-          </a>
+        <a href={item.link} target="_blank" rel="noopener noreferrer"
+          className="block group-hover:translate-x-1 transition-transform">
+          <h3 className="text-2xl font-medium mb-3 bg-gradient-to-r from-white to-white/80 
+                         bg-clip-text text-transparent">
+            {item.title}
+          </h3>
+          <p className="text-white/60 text-lg leading-relaxed">{item.description}</p>
+        </a>
 
-          <div className="mt-40 flex items-center gap-6">
-            <span className={`uppercase text-xs font-bold tracking-wider px-3 py-1.5 rounded-full bg-neutral-900 backdrop-blur-sm ${accentColor}`}>
-              {item.category}
-            </span>
-            {item.github_link && (
-              <a href={item.github_link} target="_blank"
-                className="bg-neutral-900 hover:opacity-80 transition-opacity px-3 py-1.5 rounded-full flex items-center gap-2 text-sm text-gray-300 border border-neutral-800">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                </svg>
-                GitHub
-              </a>
-            )}
-          </div>
+        <div className="mt-6 flex items-center gap-4">
+          <span className="px-4 py-1 rounded-full bg-white/[0.03] 
+                         text-xs font-medium uppercase tracking-wider text-white/40">
+            {item.category}
+          </span>
+          {item.github_link && (
+            <a href={item.github_link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-1 rounded-full
+                        text-white/40 hover:text-white/90 transition-colors
+                        hover:bg-white/[0.03]">
+              <FaGithub size={16} />
+              <span className="text-sm">View Code</span>
+            </a>
+          )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
-};
+}
 
 const COOL_STUFF: CoolStuff[] = [
   {
@@ -162,70 +163,127 @@ const COOL_STUFF: CoolStuff[] = [
 
 /** Location and work icons for profile section */
 const LocationIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
     <circle cx="12" cy="10" r="3"></circle>
   </svg>
 );
 
 const WorkIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
     <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
   </svg>
 );
 
+/** Main component with enhanced layout and animations */
 export default function Home() {
   return (
-    <div className="min-h-screen bg-neutral-950 text-white">
+    <main className="min-h-screen bg-black text-white selection:bg-white/20">
       <Navbar />
 
-      <section className="mt-20 bg-neutral-800/20 rounded-xl flex flex-col items-center justify-center px-6 pb-12 max-w-7xl mx-auto">
-        <div className="mt-12 relative w-32 h-32 rounded-xl overflow-hidden border-2 border-gray-800">
-          <Image src="/headshot.jpeg" alt="Jamie Voynow" fill className="object-cover" priority />
-        </div>
-
-        <h1 className="mt-6 text-5xl text-gray-300 font-bold tracking-tighter">Jamie Voynow</h1>
-        <p className="mt-2 text-xl font-bold text-gray-500 text-center max-w-2xl">ML Engineer // Builder</p>
-
-        <p className="mt-12 text-lg text-gray-300 leading-relaxed mb-8 text-center max-w-2xl">
-          ML Engineer, Builder, & Founder. Built and launched <a href="https://chatwithjfkfiles.com" className="text-blue-400 hover:underline">chatwithjfkfiles.com</a> in less than 4 hours. Training for the NYC Marathon.
-        </p>
-
-        <div className="mb-4 flex flex-col sm:flex-row justify-center gap-8 text-gray-400">
-          <div className="flex items-center gap-2 justify-center">
-            <LocationIcon />
-            <span>New York City, NY</span>
-          </div>
-
-          <div className="flex items-center gap-2 justify-center">
-            <WorkIcon />
-            <span>ML Engineering <a href="https://www.cantor.com/" className="text-blue-400 hover:underline">@Cantor</a></span>
+      <motion.section
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="pt-40 px-6 max-w-5xl mx-auto"
+      >
+        <div className="relative w-24 h-24 md:w-32 md:h-32 mx-auto mb-12">
+          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-transparent 
+                        blur-2xl transform -translate-x-1 -translate-y-1"></div>
+          <div className="relative rounded-full overflow-hidden border-2 border-white/[0.1]
+                        ring-4 ring-black ring-offset-2 ring-offset-black">
+            <Image
+              src="/headshot.jpeg"
+              alt="Jamie Voynow"
+              width={128}
+              height={128}
+              className="object-cover w-full h-full"
+              priority
+            />
           </div>
         </div>
-      </section>
 
-      <section className="w-full px-6 py-24">
-        <div className="relative">
-          <div className="space-y-2">
-            {COOL_STUFF.map((item) => (
-              <TimelineItem key={item.title} item={item} />
-            ))}
-          </div>
-        </div>
-      </section>
+        <div className="text-center max-w-3xl mx-auto">
+          <motion.h1
+            initial={{ y: 20 }}
+            animate={{ y: 0 }}
+            className="text-4xl font-semibold tracking-tight 
+                     bg-gradient-to-r from-white via-white to-white/80 
+                     bg-clip-text text-transparent"
+          >
+            Jamie Voynow
+          </motion.h1>
 
-      <footer className="border-t border-gray-800 mt-16">
-        <div className="px-6 py-16 md:px-24 max-w-5xl mx-auto">
-          <div className="flex flex-col items-center space-y-4">
-            <div className="flex gap-6">
-              <a href="https://twitter.com/jamievoynow" className="text-gray-400 hover:text-white transition-colors">Twitter</a>
-              <a href="https://github.com/voynow" className="text-gray-400 hover:text-white transition-colors">GitHub</a>
+          <motion.p
+            initial={{ y: 20 }}
+            animate={{ y: 0 }}
+            className="mt-4 text-xl text-white/60 font-light"
+          >
+            ML Engineer & Builder
+          </motion.p>
+
+          <motion.p
+            initial={{ y: 20 }}
+            animate={{ y: 0 }}
+            className="mt-8 text-xl text-white/80 leading-relaxed"
+          >
+            Building production ML systems that scale. Recently launched{' '}
+            <a href="https://chatwithjfkfiles.com"
+              className="text-white hover:text-white/80 transition-colors 
+                        border-b border-white/20 hover:border-white/60">
+              chatwithjfkfiles.com
+            </a>{' '}
+            in 4 hours. Training for NYC Marathon.
+          </motion.p>
+
+          <motion.div
+            initial={{ y: 20 }}
+            animate={{ y: 0 }}
+            className="mt-12 flex justify-center gap-8 text-white/40"
+          >
+            <div className="flex items-center gap-2">
+              <LocationIcon />
+              <span>New York City</span>
             </div>
-            <div className="text-sm text-gray-500">© {new Date().getFullYear()} Jamie Voynow</div>
+            <div className="flex items-center gap-2">
+              <WorkIcon />
+              <span>
+                ML Engineering{' '}
+                <a href="https://www.cantor.com/"
+                  className="text-white/60 hover:text-white transition-colors">
+                  @Cantor
+                </a>
+              </span>
+            </div>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      <section className="py-32 px-6">
+        <div className="space-y-8">
+          {COOL_STUFF.map((item, index) => (
+            <TimelineItem key={item.title} item={item} index={index} />
+          ))}
+        </div>
+      </section>
+
+      <footer className="border-t border-white/[0.06] py-12">
+        <div className="max-w-5xl mx-auto px-6 flex flex-col items-center gap-6">
+          <div className="flex gap-8">
+            <a href="https://twitter.com/jamievoynow"
+              className="text-white/40 hover:text-white transition-colors">
+              Twitter
+            </a>
+            <a href="https://github.com/voynow"
+              className="text-white/40 hover:text-white transition-colors">
+              GitHub
+            </a>
+          </div>
+          <div className="text-sm text-white/20">
+            © {new Date().getFullYear()} Jamie Voynow
           </div>
         </div>
       </footer>
-    </div>
+    </main>
   );
 }
