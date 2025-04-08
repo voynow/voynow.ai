@@ -30,23 +30,23 @@ function Navbar() {
     <motion.header
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fixed top-0 left-0 right-0 z-50"
+      className="fixed top-0 left-0 right-0 z-50 px-6 pt-4"
     >
-      <nav className="h-20 backdrop-blur-md bg-black/60 border-b border-white/[0.06]">
-        <div className="max-w-5xl mx-auto px-6 h-full flex items-center justify-between">
+      <nav className="max-w-5xl mx-auto rounded-full backdrop-blur-md bg-white/[0.02] border border-white/[0.05]">
+        <div className="pl-12 pr-12 h-14 flex items-center justify-between">
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="text-lg font-medium"
+            className="text-base font-medium"
           >
             Hey Yall 👋
           </motion.div>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-1">
             {socialLinks.map(({ name, url, icon }) => (
               <motion.a
                 key={name}
                 whileHover={{ scale: 1.1 }}
                 href={url}
-                className="p-3 rounded-full hover:bg-white/[0.06] text-white/60 hover:text-white transition-all"
+                className="p-2.5 rounded-full hover:bg-white/[0.06] text-white/60 hover:text-white transition-all"
                 aria-label={name}
               >
                 {icon}
@@ -179,7 +179,7 @@ const WorkIcon = () => (
 /** Main component with enhanced layout and animations */
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black text-white selection:bg-white/20">
+    <main className="min-h-screen bg-neutral-950 text-white selection:bg-white/20">
       <Navbar />
 
       <motion.section
@@ -227,13 +227,13 @@ export default function Home() {
             animate={{ y: 0 }}
             className="mt-8 text-xl text-white/80 leading-relaxed"
           >
-            Building production ML systems that scale. Recently launched{' '}
+            I love keeping things simple & shipping fast. Example: Built and launched{' '}
             <a href="https://chatwithjfkfiles.com"
               className="text-white hover:text-white/80 transition-colors 
                         border-b border-white/20 hover:border-white/60">
               chatwithjfkfiles.com
             </a>{' '}
-            in 4 hours. Training for NYC Marathon.
+            in less than 4 hours.
           </motion.p>
 
           <motion.div
