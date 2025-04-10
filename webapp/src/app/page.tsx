@@ -116,7 +116,7 @@ const TimelineItem = ({ item, index }: { item: CoolStuff; index: number }) => {
 
 const COOL_STUFF: CoolStuff[] = [
   {
-    date: "2025-04-8",
+    date: "2025-04-08",
     title: "Spicy Take on OpenAI Evals",
     description: "My opinions on the new OpenAI evals platform seemed to resonate with the community. Spoiler: I'm not a fan.",
     link: "https://x.com/jamievoynow/status/1909729715218153544",
@@ -194,7 +194,7 @@ export default function Home() {
         animate={{ opacity: 1 }}
         className="pt-40 px-6 max-w-5xl mx-auto"
       >
-        <div className="relative w-24 h-24 md:w-32 md:h-32 mx-auto mb-12">
+        <div className="relative w-32 h-32 mx-auto mb-6">
           <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-transparent 
                         blur-2xl transform -translate-x-1 -translate-y-1"></div>
           <div className="relative rounded-full overflow-hidden border-2 border-white/[0.1]
@@ -214,7 +214,7 @@ export default function Home() {
           <motion.h1
             initial={{ y: 20 }}
             animate={{ y: 0 }}
-            className="text-4xl font-semibold tracking-tight 
+            className="text-5xl font-black tracking-tight 
                      bg-gradient-to-r from-white via-white to-white/80 
                      bg-clip-text text-transparent"
           >
@@ -224,9 +224,9 @@ export default function Home() {
           <motion.p
             initial={{ y: 20 }}
             animate={{ y: 0 }}
-            className="mt-4 text-xl text-white/60 font-light"
+            className="mt-4 text-3xl text-yellow-400 font-medium"
           >
-            ML Engineer & Builder
+            Shipping fast, weird, and useful AI apps
           </motion.p>
 
           <motion.p
@@ -234,7 +234,7 @@ export default function Home() {
             animate={{ y: 0 }}
             className="mt-8 text-xl text-white/80 leading-relaxed"
           >
-            I love keeping things simple & shipping fast. Example: Built and launched{' '}
+            I love keeping things simple and building apps fast. Example: Built and launched{' '}
             <a href="https://chatwithjfkfiles.com"
               className="text-white hover:text-white/80 transition-colors 
                         border-b border-white/20 hover:border-white/60">
@@ -246,7 +246,7 @@ export default function Home() {
           <motion.div
             initial={{ y: 20 }}
             animate={{ y: 0 }}
-            className="mt-12 flex justify-center gap-8 text-white/40"
+            className="mt-8 flex justify-center gap-8 text-white/40"
           >
             <div className="flex items-center gap-2">
               <LocationIcon />
