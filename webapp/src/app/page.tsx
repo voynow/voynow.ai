@@ -116,6 +116,13 @@ const TimelineItem = ({ item, index }: { item: CoolStuff; index: number }) => {
 
 const COOL_STUFF: CoolStuff[] = [
   {
+    date: "2025-04-8",
+    title: "Spicy Take on OpenAI Evals",
+    description: "My opinions on the new OpenAI evals platform seemed to resonate with the community. Spoiler: I'm not a fan.",
+    link: "https://x.com/jamievoynow/status/1909729715218153544",
+    category: "tweet"
+  },
+  {
     date: "2025-03-23",
     title: "No-BS Shipping Chat Apps That Scale",
     description: "Agents who? Chat apps make up 95% of successful production LLM projects. Here's my guide to building them fast.",
