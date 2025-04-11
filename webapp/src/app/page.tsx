@@ -26,9 +26,9 @@ type CoolStuff = {
 /** Refined navigation with subtle animations */
 function Navbar() {
   const socialLinks: SocialLink[] = [
-    { name: 'Twitter', url: 'https://twitter.com/jamievoynow', icon: <FaTwitter size={25} /> },
-    { name: 'GitHub', url: 'https://github.com/voynow', icon: <FaGithub size={25} /> },
-    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/voynow/', icon: <FaLinkedin size={25} /> }
+    { name: 'Twitter', url: 'https://twitter.com/jamievoynow', icon: <FaTwitter size={20} /> },
+    { name: 'GitHub', url: 'https://github.com/voynow', icon: <FaGithub size={20} /> },
+    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/voynow/', icon: <FaLinkedin size={20} /> }
   ];
 
   return (
@@ -38,12 +38,21 @@ function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 px-6 pt-4"
     >
       <nav className="max-w-5xl mx-auto rounded-full backdrop-blur-md bg-white/[0.02] border border-white/[0.05]">
-        <div className="pl-12 pr-12 h-14 flex items-center justify-between">
+        <div className="pl-6 pr-6 h-12 flex items-center justify-between">
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="text-xl font-medium"
+            className="flex items-center gap-3"
           >
-            Hey Yall 👋
+            <div className="relative w-8 h-8 rounded-full overflow-hidden border border-white/10">
+              <Image
+                src="/headshot.jpeg"
+                alt="Jamie Voynow"
+                width={36}
+                height={36}
+                className="object-cover w-full h-full"
+                priority
+              />
+            </div>
           </motion.div>
           <div className="flex items-center gap-1">
             {socialLinks.map(({ name, url, icon }) => (
@@ -51,7 +60,7 @@ function Navbar() {
                 key={name}
                 whileHover={{ scale: 1.1 }}
                 href={url}
-                className="p-2.5 rounded-full hover:bg-white/[0.06] text-white/60 hover:text-white transition-all"
+                className="p-2 rounded-full hover:bg-white/[0.06] text-white/60 hover:text-white transition-all"
                 aria-label={name}
               >
                 {icon}
@@ -88,8 +97,8 @@ const TimelineItem = ({ item, index }: { item: CoolStuff; index: number }) => {
         </div>
 
         {item.featured && (
-          <div className="absolute top-4 right-4 text-yellow-400/60 hover:text-yellow-400 transition-colors">
-            <BsPinFill size={16} />
+          <div className="absolute top-4 right-4 text-white/40 hover:text-white transition-colors">
+            <BsPinFill size={20} />
           </div>
         )}
 
@@ -115,22 +124,24 @@ const TimelineItem = ({ item, index }: { item: CoolStuff; index: number }) => {
           )}
         </a>
 
-        <div className="mt-6 flex items-center gap-4">
-          <span className="px-4 py-1 rounded-full bg-white/[0.03] 
-                         text-xs font-medium uppercase tracking-wider text-white/40">
+        <div className="mt-6 flex items-center justify-between">
+          <span className="px-4 py-2 rounded-full bg-white/[0.03] 
+                         text-sm font-medium uppercase tracking-wider text-white/40">
             {item.category}
           </span>
-          {item.github_link && (
-            <a href={item.github_link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-1 rounded-full
-                        text-white/40 hover:text-white/90 transition-colors
-                        hover:bg-white/[0.03]">
-              <FaGithub size={16} />
-              <span className="text-sm">View Code</span>
-            </a>
-          )}
+          <div className="flex items-center gap-3">
+            {item.github_link && (
+              <a href={item.github_link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-1.5 rounded-full
+                          bg-indigo-600/50 text-white/80 transition-colors
+                          hover:bg-indigo-600/60 group">
+                <FaGithub size={20} className="group-hover:scale-110 transition-transform" />
+                <span className="text-md">Code</span>
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </motion.div>
@@ -217,75 +228,74 @@ export default function Home() {
       <motion.section
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="pt-40 px-6 max-w-5xl mx-auto"
+        className="pt-45 px-6 max-w-3xl mx-auto"
       >
-        <div className="relative w-32 h-32 mx-auto mb-6">
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-transparent 
-                        blur-2xl transform -translate-x-1 -translate-y-1"></div>
-          <div className="relative rounded-full overflow-hidden border-2 border-white/[0.1]
-                        ring-4 ring-black ring-offset-2 ring-offset-black">
-            <Image
-              src="/headshot.jpeg"
-              alt="Jamie Voynow"
-              width={128}
-              height={128}
-              className="object-cover w-full h-full"
-              priority
-            />
-          </div>
-        </div>
-
-        <div className="text-center max-w-2xl mx-auto">
+        <div className="text-center space-y-8">
           <motion.h1
             initial={{ y: 20 }}
             animate={{ y: 0 }}
-            className="text-5xl font-black tracking-tight 
-                     bg-gradient-to-r from-white via-white to-white/80 
-                     bg-clip-text text-transparent"
+            className="text-7xl font-black tracking-tight 
+                       bg-gradient-to-b from-white to-white/80 
+                       bg-clip-text text-transparent"
           >
-            Jamie Voynow
+            Hi, I'm Jamie
           </motion.h1>
 
           <motion.p
             initial={{ y: 20 }}
             animate={{ y: 0 }}
-            className="mt-4 text-3xl text-yellow-300 font-medium"
+            className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-indigo-600"
           >
-            Shipping fast, weird, and useful AI apps
+            I ship fast, weird, and useful AI apps
           </motion.p>
 
           <motion.p
             initial={{ y: 20 }}
             animate={{ y: 0 }}
-            className="mt-8 text-xl text-white/80 leading-relaxed"
+            className="text-xl text-white/60 leading-relaxed max-w-2xl mx-auto"
           >
-            I sometimes help early-stage teams move fast and fight complexity when building applied AI applications.
+            I occasionally help early-stage teams move fast and fight complexity when building applied AI applications.
           </motion.p>
 
           <motion.div
             initial={{ y: 20 }}
             animate={{ y: 0 }}
-            className="mt-8 flex justify-center gap-8 text-white/40"
+            className="flex items-center justify-center gap-6 text-white/40 text-sm"
           >
             <div className="flex items-center gap-2">
               <LocationIcon />
               <span>New York City</span>
             </div>
+            <div className="w-1 h-1 bg-white/20 rounded-full" />
             <div className="flex items-center gap-2">
               <WorkIcon />
-              <span>
-                ML Engineering{' '}
-                <a href="https://www.cantor.com/"
-                  className="text-white/60 hover:text-white transition-colors">
-                  @Cantor
-                </a>
-              </span>
+              <span>ML Engineering @ <a href="https://www.cantor.com/" className="text-white/60 hover:text-white transition-colors">Cantor</a></span>
             </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ y: 20 }}
+            animate={{ y: 0 }}
+            className="pt-4"
+          >
+            <motion.a
+              whileHover={{ scale: 1.02, backgroundColor: 'rgba(255, 255, 255, 0.08)' }}
+              whileTap={{ scale: 0.98 }}
+              href="https://twitter.com/jamievoynow"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-8 py-3 rounded-full
+                        bg-white/[0.03] border border-white/10
+                        text-white/80 hover:text-white font-medium
+                        transition-all duration-300 text-lg"
+            >
+              Work with me
+            </motion.a>
           </motion.div>
         </div>
       </motion.section>
 
-      <section className="py-32 px-6">
+      <section className="py-24 px-6">
         <div className="space-y-8">
           {COOL_STUFF.map((item, index) => (
             <TimelineItem key={item.title} item={item} index={index} />
