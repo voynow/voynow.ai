@@ -312,12 +312,12 @@ export default function Home() {
         >
           <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 
                          bg-clip-text text-transparent">
-            Let's Build Something Great Together
+            Lets Build Something Great Together
           </h2>
 
           <p className="text-xl text-white/60 leading-relaxed">
             I help teams ship production-ready AI applications without the complexity.
-            Whether you're starting from scratch or scaling up, let's chat.
+            Whether youbrore starting from scratch or scaling up, lets chat.
           </p>
 
           <motion.div className="pt-8">
