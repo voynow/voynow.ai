@@ -2,7 +2,9 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { BsPinFill } from 'react-icons/bs';
 import { FaGithub, FaTwitter } from 'react-icons/fa';
+import { FaLinkedin } from 'react-icons/fa6';
 
 type SocialLink = {
   name: string;
@@ -17,13 +19,16 @@ type CoolStuff = {
   link: string;
   category: string;
   github_link?: string;
+  featured?: boolean;
+  image?: string;
 };
 
 /** Refined navigation with subtle animations */
 function Navbar() {
   const socialLinks: SocialLink[] = [
-    { name: 'Twitter', url: 'https://twitter.com/jamievoynow', icon: <FaTwitter size={20} /> },
-    { name: 'GitHub', url: 'https://github.com/voynow', icon: <FaGithub size={20} /> }
+    { name: 'Twitter', url: 'https://twitter.com/jamievoynow', icon: <FaTwitter size={25} /> },
+    { name: 'GitHub', url: 'https://github.com/voynow', icon: <FaGithub size={25} /> },
+    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/voynow/', icon: <FaLinkedin size={25} /> }
   ];
 
   return (
@@ -36,7 +41,7 @@ function Navbar() {
         <div className="pl-12 pr-12 h-14 flex items-center justify-between">
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="text-base font-medium"
+            className="text-xl font-medium"
           >
             Hey Yall 👋
           </motion.div>
@@ -73,15 +78,20 @@ const TimelineItem = ({ item, index }: { item: CoolStuff; index: number }) => {
       transition={{ delay: index * 0.1 }}
       className="group"
     >
-      <div className="relative w-full max-w-5xl mx-auto p-8 rounded-2xl transition-all duration-300
+      <div className={`relative w-full max-w-4xl mx-auto p-8 rounded-2xl transition-all duration-300
                     bg-gradient-to-br from-white/[0.02] to-transparent
-                    hover:from-white/[0.04] hover:to-transparent
-                    border border-white/[0.06] hover:border-white/[0.1]">
+                    border border-white/[0.06] hover:border-white/[0.1]`}>
         <div className="absolute -top-3 left-8 px-4 py-1 rounded-full 
                       bg-black border border-white/[0.06]
                       font-mono text-xs tracking-wider text-white/40">
           {formattedDate}
         </div>
+
+        {item.featured && (
+          <div className="absolute top-4 right-4 text-yellow-400/60 hover:text-yellow-400 transition-colors">
+            <BsPinFill size={16} />
+          </div>
+        )}
 
         <a href={item.link} target="_blank" rel="noopener noreferrer"
           className="block group-hover:translate-x-1 transition-transform">
@@ -90,6 +100,19 @@ const TimelineItem = ({ item, index }: { item: CoolStuff; index: number }) => {
             {item.title}
           </h3>
           <p className="text-white/60 text-lg leading-relaxed">{item.description}</p>
+
+          {item.featured && item.image && (
+            <div className="mt-6 rounded-xl overflow-hidden border border-white/10">
+              <Image
+                src={item.image}
+                alt={item.title}
+                width={1200}
+                height={630}
+                className="w-full h-auto object-cover hover:scale-[1.02] transition-transform duration-500"
+                priority
+              />
+            </div>
+          )}
         </a>
 
         <div className="mt-6 flex items-center gap-4">
@@ -117,10 +140,13 @@ const TimelineItem = ({ item, index }: { item: CoolStuff; index: number }) => {
 const COOL_STUFF: CoolStuff[] = [
   {
     date: "2025-04-08",
-    title: "Spicy Take on OpenAI Evals",
-    description: "My opinions on the new OpenAI evals platform seemed to resonate with the community. Spoiler: I'm not a fan.",
-    link: "https://x.com/jamievoynow/status/1909729715218153544",
-    category: "tweet"
+    title: "Chat With JFK Files",
+    description: "400M+ tokens processed, 1M+ Impressions on Twitter, 10s of thousands of users, 150+ GitHub stars",
+    link: "https://chatwithjfkfiles.com",
+    github_link: "https://github.com/voynow/chat-with-jfk-files",
+    category: "project",
+    featured: true,
+    image: "/jfk-files.png"
   },
   {
     date: "2025-03-23",
@@ -131,11 +157,10 @@ const COOL_STUFF: CoolStuff[] = [
   },
   {
     date: "2025-03-18",
-    title: "Chat With JFK Files",
-    description: "400M+ tokens processed, 1M+ Impressions on Twitter, 10s of thousands of users, 150+ stars on GitHub",
-    link: "https://chatwithjfkfiles.com",
-    github_link: "https://github.com/voynow/chat-with-jfk-files",
-    category: "project"
+    title: "Spicy Take on OpenAI Evals",
+    description: "My opinions on the new OpenAI evals platform seemed to resonate with the community. Spoiler: I'm not a fan.",
+    link: "https://x.com/jamievoynow/status/1909729715218153544",
+    category: "tweet"
   },
   {
     date: "2025-02-23",
@@ -210,7 +235,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="text-center max-w-3xl mx-auto">
+        <div className="text-center max-w-2xl mx-auto">
           <motion.h1
             initial={{ y: 20 }}
             animate={{ y: 0 }}
@@ -224,7 +249,7 @@ export default function Home() {
           <motion.p
             initial={{ y: 20 }}
             animate={{ y: 0 }}
-            className="mt-4 text-3xl text-yellow-400 font-medium"
+            className="mt-4 text-3xl text-yellow-300 font-medium"
           >
             Shipping fast, weird, and useful AI apps
           </motion.p>
@@ -234,13 +259,7 @@ export default function Home() {
             animate={{ y: 0 }}
             className="mt-8 text-xl text-white/80 leading-relaxed"
           >
-            I love keeping things simple and building apps fast. Example: Built and launched{' '}
-            <a href="https://chatwithjfkfiles.com"
-              className="text-white hover:text-white/80 transition-colors 
-                        border-b border-white/20 hover:border-white/60">
-              chatwithjfkfiles.com
-            </a>{' '}
-            in less than 4 hours.
+            I sometimes help early-stage teams move fast and fight complexity when building applied AI applications.
           </motion.p>
 
           <motion.div
