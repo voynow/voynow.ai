@@ -303,6 +303,43 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="py-36 px-6
+                    bg-indigo-600/10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="max-w-3xl mx-auto text-center space-y-8"
+        >
+          <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 
+                         bg-clip-text text-transparent">
+            Let's Build Something Great Together
+          </h2>
+
+          <p className="text-xl text-white/60 leading-relaxed">
+            I help teams ship production-ready AI applications without the complexity.
+            Whether you're starting from scratch or scaling up, let's chat.
+          </p>
+
+          <motion.div className="pt-8">
+            <motion.a
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              href="https://twitter.com/jamievoynow"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-10 py-4 rounded-full
+                        bg-gradient-to-r from-blue-500 to-indigo-500
+                        hover:from-blue-400 hover:to-indigo-400
+                        text-white text-lg font-medium
+                        transition-all duration-300 shadow-lg shadow-indigo-500/20"
+            >
+              DM me on Twitter
+              <FaTwitter size={20} />
+            </motion.a>
+          </motion.div>
+        </motion.div>
+      </section>
+
       <footer className="border-t border-white/[0.06] py-12">
         <div className="max-w-5xl mx-auto px-6 flex flex-col items-center gap-6">
           <div className="flex gap-8">
