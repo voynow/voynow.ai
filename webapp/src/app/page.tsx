@@ -238,7 +238,7 @@ export default function Home() {
                        bg-gradient-to-b from-white to-white/80 
                        bg-clip-text text-transparent"
           >
-            Hi, I'm Jamie
+            Hi, Im Jamie
           </motion.h1>
 
           <motion.p
