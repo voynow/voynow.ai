@@ -35,35 +35,47 @@ function Navbar() {
     <motion.header
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fixed top-0 left-0 right-0 z-50 px-6 pt-4"
+      className="fixed top-0 left-0 right-0 z-50 px-4 md:px-6 pt-4"
     >
       <nav className="max-w-5xl mx-auto rounded-full backdrop-blur-md bg-white/[0.02] border border-white/[0.05]">
-        <div className="pl-6 pr-6 h-12 flex items-center justify-between">
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center gap-3"
-          >
-            <div className="relative w-8 h-8 rounded-full overflow-hidden border border-white/10">
+        <div className="px-4 md:px-6 h-12 flex items-center justify-between">
+          {/* Mobile: Icons only, Desktop: Icons with labels */}
+          <div className="flex items-center gap-3">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="relative w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden border border-white/10"
+            >
               <Image
                 src="/headshot.jpeg"
                 alt="Jamie Voynow"
-                width={36}
-                height={36}
+                width={40}
+                height={40}
                 className="object-cover w-full h-full"
                 priority
               />
-            </div>
-          </motion.div>
-          <div className="flex items-center gap-1">
+            </motion.div>
+            {/* Only show name on medium+ screens */}
+            <span className="hidden sm:block text-white/80 font-bold">
+              Jamie Voynow
+            </span>
+          </div>
+
+          {/* Social Links */}
+          <div className="flex items-center gap-1 md:gap-2">
             {socialLinks.map(({ name, url, icon }) => (
               <motion.a
                 key={name}
                 whileHover={{ scale: 1.1 }}
                 href={url}
-                className="p-2 rounded-full hover:bg-white/[0.06] text-white/60 hover:text-white transition-all"
+                className="p-2 rounded-full hover:bg-white/[0.06] text-white/60 hover:text-white transition-all
+                          flex items-center gap-2"
                 aria-label={name}
               >
                 {icon}
+                {/* Only show labels on large screens */}
+                <span className="hidden lg:block text-sm">
+                  {name}
+                </span>
               </motion.a>
             ))}
           </div>
@@ -150,7 +162,7 @@ const TimelineItem = ({ item, index }: { item: CoolStuff; index: number }) => {
 
 const COOL_STUFF: CoolStuff[] = [
   {
-    date: "2025-04-08",
+    date: "2025-03-18",
     title: "Chat With JFK Files",
     description: "400M+ tokens processed, 1M+ Impressions on Twitter, 10s of thousands of users, 150+ GitHub stars",
     link: "https://chatwithjfkfiles.com",
@@ -160,18 +172,18 @@ const COOL_STUFF: CoolStuff[] = [
     image: "/jfk-files.png"
   },
   {
+    date: "2025-04-08",
+    title: "Spicy Take on OpenAI Evals",
+    description: "My opinions on the new OpenAI evals platform seemed to resonate with the community. Spoiler: I'm not a fan.",
+    link: "https://x.com/jamievoynow/status/1909729715218153544",
+    category: "tweet"
+  },
+  {
     date: "2025-03-23",
     title: "No-BS Shipping Chat Apps That Scale",
     description: "Agents who? Chat apps make up 95% of successful production LLM projects. Here's my guide to building them fast.",
     link: "https://x.com/jamievoynow/status/1903832332462649472",
     category: "article"
-  },
-  {
-    date: "2025-03-18",
-    title: "Spicy Take on OpenAI Evals",
-    description: "My opinions on the new OpenAI evals platform seemed to resonate with the community. Spoiler: I'm not a fan.",
-    link: "https://x.com/jamievoynow/status/1909729715218153544",
-    category: "tweet"
   },
   {
     date: "2025-02-23",
@@ -181,7 +193,7 @@ const COOL_STUFF: CoolStuff[] = [
     category: "tweet"
   },
   {
-    date: "2025-02-23",
+    date: "2025-02-03",
     title: "I Was Plagiarized",
     description: "@ntdillon plagiarized my work, stole my virtual identity, ran a crypto scam, and dissapeared.",
     link: "https://x.com/jamievoynow/status/1886555832814641255",
