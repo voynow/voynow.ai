@@ -310,7 +310,7 @@ export default function Home() {
       </section>
 
       <section className="py-36 px-6
-                    bg-indigo-600/15">
+                    bg-indigo-600/10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -318,12 +318,12 @@ export default function Home() {
         >
           <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 
                          bg-clip-text text-transparent">
-            Let's Build Something Great Together
+            Let&apos;s Build Something Great Together
           </h2>
 
           <p className="text-xl text-white/60 leading-relaxed">
             I help teams ship production-ready AI applications without the complexity.
-            Whether you're starting from scratch or scaling up, let's chat.
+            Whether you&apos;re starting from scratch or scaling up, let&apos;s chat.
           </p>
 
           <motion.div className="pt-8">
