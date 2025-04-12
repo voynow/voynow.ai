@@ -73,7 +73,7 @@ function Navbar() {
               >
                 {icon}
                 {/* Only show labels on large screens */}
-                <span className="hidden lg:block text-sm">
+                <span className="hidden sm:block text-sm">
                   {name}
                 </span>
               </motion.a>
