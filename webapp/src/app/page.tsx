@@ -281,7 +281,7 @@ export default function Home() {
             <motion.a
               whileHover={{ scale: 1.02, backgroundColor: 'rgba(255, 255, 255, 0.08)' }}
               whileTap={{ scale: 0.98 }}
-              href="https://twitter.com/jamievoynow"
+              href="https://calendly.com/voynow99/30min"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-3 rounded-full
@@ -289,7 +289,13 @@ export default function Home() {
                         text-white/80 hover:text-white font-medium
                         transition-all duration-300 text-lg"
             >
-              Work with me
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              Schedule a call
             </motion.a>
           </motion.div>
         </div>
@@ -304,7 +310,7 @@ export default function Home() {
       </section>
 
       <section className="py-36 px-6
-                    bg-indigo-600/10">
+                    bg-indigo-600/15">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -312,19 +318,19 @@ export default function Home() {
         >
           <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 
                          bg-clip-text text-transparent">
-            Lets Build Something Great Together
+            Let's Build Something Great Together
           </h2>
 
           <p className="text-xl text-white/60 leading-relaxed">
             I help teams ship production-ready AI applications without the complexity.
-            Whether youbrore starting from scratch or scaling up, lets chat.
+            Whether you're starting from scratch or scaling up, let's chat.
           </p>
 
           <motion.div className="pt-8">
             <motion.a
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              href="https://twitter.com/jamievoynow"
+              href="https://calendly.com/voynow99/30min"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-10 py-4 rounded-full
@@ -333,8 +339,13 @@ export default function Home() {
                         text-white text-lg font-medium
                         transition-all duration-300 shadow-lg shadow-indigo-500/20"
             >
-              DM me on Twitter
-              <FaTwitter size={20} />
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              Schedule a 30-min call
             </motion.a>
           </motion.div>
         </motion.div>
