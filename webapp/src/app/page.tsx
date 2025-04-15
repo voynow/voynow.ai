@@ -253,7 +253,9 @@ function ChatInterface({ isOpen, setIsOpen }: ChatInterfaceProps) {
   useEffect(() => {
     if (isOpen && !hasInitialized.current) {
       hasInitialized.current = true;
-      handleSubmit(new Event('submit') as any, "Give me a hot take on building AI apps right now.", true);
+      // Create a synthetic event object with the correct type
+      const syntheticEvent = { preventDefault: () => { } } as React.FormEvent<HTMLFormElement>;
+      handleSubmit(syntheticEvent, "Give me a hot take on building AI apps right now.", true);
     }
   }, [isOpen]);
 
