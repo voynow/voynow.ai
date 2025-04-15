@@ -277,7 +277,7 @@ function ChatInterface({ isOpen, setIsOpen }: ChatInterfaceProps) {
     scrollToBottom();
   }, [messages]);
 
-  const handleSubmit = async (e: React.FormEvent, overrideMessage?: string, hideMessage?: boolean) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, overrideMessage?: string, hideMessage?: boolean) => {
     e.preventDefault();
     if ((!input.trim() && !overrideMessage) || isLoading) return;
 
