@@ -366,26 +366,26 @@ function ChatInterface({ isOpen, setIsOpen }: ChatInterfaceProps) {
           display: isOpen ? 'flex' : 'none'
         }}
         transition={{ duration: 0.2 }}
-        className="fixed top-[5vh] left-1/2 -translate-x-1/2 w-full max-w-6xl h-[90vh] z-50"
+        className="fixed top-0 left-0 w-full h-full md:top-[5vh] md:left-1/2 md:-translate-x-1/2 md:w-full md:max-w-6xl md:h-[90vh] z-50"
       >
-        <div className="bg-neutral-950/95 backdrop-blur-xl border border-white/[0.06] rounded-3xl overflow-hidden shadow-2xl flex flex-col w-full">
+        <div className="bg-neutral-950/95 backdrop-blur-xl border border-white/[0.06] rounded-none md:rounded-3xl overflow-hidden shadow-2xl flex flex-col w-full h-full">
           {/* Header */}
-          <div className="flex items-center justify-between px-6 py-5 border-b border-white/[0.06] bg-black/20">
-            <div className="flex items-center gap-4">
+          <div className="flex items-center justify-between px-4 md:px-6 py-4 border-b border-white/[0.06] bg-black/20">
+            <div className="flex items-center gap-3">
               <div className="relative">
-                <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse" />
+                <div className="w-3 h-3 md:w-4 md:h-4 bg-green-500 rounded-full animate-pulse" />
                 <div className="absolute inset-0 bg-green-500/20 rounded-full animate-ping" />
               </div>
               <div>
-                <span className="text-white/90 font-medium text-xl">Voynow AI</span>
-                <p className="text-white/40 text-sm">Disclaimer: Responses may not reflect actual views of Jamie Voynow</p>
+                <span className="text-white/90 font-medium text-lg md:text-xl">Voynow AI</span>
+                <p className="text-white/40 text-xs md:text-sm">Disclaimer: Responses may not reflect actual views of Jamie Voynow</p>
               </div>
             </div>
             <button
               onClick={() => setIsOpen(false)}
               className="text-white/40 hover:text-white/60 p-2 hover:bg-white/[0.06] rounded-full transition-colors"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
               </svg>
@@ -393,17 +393,17 @@ function ChatInterface({ isOpen, setIsOpen }: ChatInterfaceProps) {
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto px-6 py-5 space-y-6">
+          <div className="flex-1 overflow-y-auto px-4 md:px-6 py-4 space-y-4 md:space-y-6">
             {messages.length === 0 && (
-              <div className="flex flex-col items-center justify-center h-full space-y-8 text-center">
-                <div className="w-20 h-20 rounded-full bg-indigo-600/20 flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-indigo-400">
+              <div className="flex flex-col items-center justify-center h-full space-y-6 md:space-y-8 text-center">
+                <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-indigo-600/20 flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-indigo-400">
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-white/90 mb-3">Ship Fast, Stay Weird</h3>
-                  <p className="text-white/60 text-lg">
+                  <h3 className="text-xl md:text-2xl font-bold text-white/90 mb-2 md:mb-3">Ship Fast, Stay Weird</h3>
+                  <p className="text-white/60 text-base md:text-lg">
                     Ask me about building AI apps, fighting complexity, or my latest experiments.
                   </p>
                 </div>
@@ -414,10 +414,10 @@ function ChatInterface({ isOpen, setIsOpen }: ChatInterfaceProps) {
                 key={index}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} items-end gap-3`}
+                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} items-end gap-2 md:gap-3`}
               >
                 {message.role === 'assistant' && (
-                  <div className="w-10 h-10 rounded-full overflow-hidden border border-white/10 flex-shrink-0">
+                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden border border-white/10 flex-shrink-0">
                     <Image
                       src="/headshot.jpeg"
                       alt="Voynow AI"
@@ -428,16 +428,16 @@ function ChatInterface({ isOpen, setIsOpen }: ChatInterfaceProps) {
                   </div>
                 )}
                 <div
-                  className={`max-w-[70%] p-4 rounded-2xl ${message.role === 'user'
+                  className={`max-w-[85%] md:max-w-[70%] p-3 md:p-4 rounded-2xl ${message.role === 'user'
                     ? 'bg-indigo-600 text-white rounded-br-sm'
                     : 'bg-white/[0.03] text-white/90 rounded-bl-sm'
                     }`}
                 >
-                  <p className="text-lg leading-relaxed">{message.content}</p>
+                  <p className="text-base md:text-lg leading-relaxed">{message.content}</p>
                 </div>
                 {message.role === 'user' && (
-                  <div className="w-10 h-10 rounded-full bg-white/[0.05] flex items-center justify-center flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white/40">
+                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/[0.05] flex items-center justify-center flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white/40">
                       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                       <circle cx="12" cy="7" r="4"></circle>
                     </svg>
@@ -449,27 +449,27 @@ function ChatInterface({ isOpen, setIsOpen }: ChatInterfaceProps) {
           </div>
 
           {/* Input Form */}
-          <form onSubmit={(e) => handleSubmit(e)} className="px-6 py-5 border-t border-white/[0.06] bg-black/20">
-            <div className="flex gap-4">
+          <form onSubmit={(e) => handleSubmit(e)} className="px-4 md:px-6 py-4 border-t border-white/[0.06] bg-black/20">
+            <div className="flex flex-col md:flex-row gap-3 md:gap-4">
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask me anything..."
-                className="flex-1 bg-white/[0.03] border border-white/[0.06] rounded-xl px-6 py-4 text-white/90 text-lg focus:outline-none focus:border-indigo-500/50 placeholder:text-white/40"
+                className="flex-1 bg-white/[0.03] border border-white/[0.06] rounded-xl px-4 md:px-6 py-3 md:py-4 text-white/90 text-base md:text-lg focus:outline-none focus:border-indigo-500/50 placeholder:text-white/40"
                 disabled={isLoading}
               />
               <button
                 type="submit"
                 disabled={isLoading}
-                className="px-8 py-4 rounded-xl bg-indigo-600 text-white hover:bg-indigo-500 transition-colors disabled:opacity-50 font-medium text-lg flex items-center gap-3"
+                className="px-6 md:px-8 py-3 md:py-4 rounded-xl bg-indigo-600 text-white hover:bg-indigo-500 transition-colors disabled:opacity-50 font-medium text-base md:text-lg flex items-center justify-center gap-2 md:gap-3"
               >
                 {isLoading ? (
-                  <div className="w-6 h-6 border-2 border-white/20 border-t-white/90 rounded-full animate-spin" />
+                  <div className="w-5 h-5 md:w-6 md:h-6 border-2 border-white/20 border-t-white/90 rounded-full animate-spin" />
                 ) : (
                   <>
                     <span>Send</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <line x1="22" y1="2" x2="11" y2="13"></line>
                       <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                     </svg>
