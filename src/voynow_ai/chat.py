@@ -8,7 +8,7 @@ from fastapi.responses import StreamingResponse
 from openai import AsyncOpenAI
 from pydantic import BaseModel
 
-from voynow_ai.twitter_api import get_data
+from src.voynow_ai.twitter_api import get_data
 
 load_dotenv()
 app = FastAPI()
