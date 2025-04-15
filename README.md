@@ -1,1 +1,1 @@
-# jamievoynow.com
+# voynow_ai

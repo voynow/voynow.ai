@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
 import { BsPinFill } from 'react-icons/bs';
 import { FaGithub, FaTwitter } from 'react-icons/fa';
 import { FaLinkedin } from 'react-icons/fa6';
@@ -21,6 +22,16 @@ type CoolStuff = {
   github_link?: string;
   featured?: boolean;
   image?: string;
+};
+
+type Message = {
+  role: 'user' | 'assistant';
+  content: string;
+};
+
+type ChatInterfaceProps = {
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
 };
 
 /** Refined navigation with subtle animations */
@@ -231,8 +242,250 @@ const WorkIcon = () => (
   </svg>
 );
 
+function ChatInterface({ isOpen, setIsOpen }: ChatInterfaceProps) {
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const hasInitialized = useRef(false);
+
+  // Auto-send initial message when chat opens
+  useEffect(() => {
+    if (isOpen && !hasInitialized.current) {
+      hasInitialized.current = true;
+      handleSubmit(new Event('submit') as any, "Give me a hot take on building AI apps right now.", true);
+    }
+  }, [isOpen]);
+
+  // Prevent background scroll when chat is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isOpen]);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const handleSubmit = async (e: React.FormEvent, overrideMessage?: string, hideMessage?: boolean) => {
+    e.preventDefault();
+    if ((!input.trim() && !overrideMessage) || isLoading) return;
+
+    const userMessage = overrideMessage || input.trim();
+    if (!overrideMessage) setInput('');
+    if (!hideMessage) {
+      setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+    }
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('http://localhost:8000/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: userMessage,
+          chat_history: messages.map(m => m.content),
+        }),
+      });
+
+      if (!response.ok) throw new Error('Failed to fetch response');
+
+      const reader = response.body?.getReader();
+      if (!reader) throw new Error('No reader available');
+
+      let assistantMessage = '';
+      setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = new TextDecoder().decode(value);
+        const lines = chunk.split('\n');
+
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            const content = line.slice(6);
+            assistantMessage += content;
+            setMessages(prev => {
+              const newMessages = [...prev];
+              newMessages[newMessages.length - 1] = {
+                role: 'assistant',
+                content: assistantMessage,
+              };
+              return newMessages;
+            });
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: 'Sorry, I encountered an error. Please try again.'
+      }]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <>
+      {/* Backdrop */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{
+          opacity: isOpen ? 0.5 : 0,
+          display: isOpen ? 'block' : 'none'
+        }}
+        transition={{ duration: 0.2 }}
+        className="fixed inset-0 bg-black/80 z-40"
+        onClick={() => setIsOpen(false)}
+      />
+
+      {/* Chat Interface */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{
+          opacity: isOpen ? 1 : 0,
+          scale: isOpen ? 1 : 0.95,
+          display: isOpen ? 'flex' : 'none'
+        }}
+        transition={{ duration: 0.2 }}
+        className="fixed top-[5vh] left-1/2 -translate-x-1/2 w-full max-w-6xl h-[90vh] z-50"
+      >
+        <div className="bg-neutral-950/95 backdrop-blur-xl border border-white/[0.06] rounded-3xl overflow-hidden shadow-2xl flex flex-col w-full">
+          {/* Header */}
+          <div className="flex items-center justify-between px-6 py-5 border-b border-white/[0.06] bg-black/20">
+            <div className="flex items-center gap-4">
+              <div className="relative">
+                <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse" />
+                <div className="absolute inset-0 bg-green-500/20 rounded-full animate-ping" />
+              </div>
+              <div>
+                <span className="text-white/90 font-medium text-xl">Voynow AI</span>
+                <p className="text-white/40 text-sm">Disclaimer: Responses may not reflect actual views of Jamie Voynow</p>
+              </div>
+            </div>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="text-white/40 hover:text-white/60 p-2 hover:bg-white/[0.06] rounded-full transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+
+          {/* Messages */}
+          <div className="flex-1 overflow-y-auto px-6 py-5 space-y-6">
+            {messages.length === 0 && (
+              <div className="flex flex-col items-center justify-center h-full space-y-8 text-center">
+                <div className="w-20 h-20 rounded-full bg-indigo-600/20 flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-indigo-400">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-white/90 mb-3">Ship Fast, Stay Weird</h3>
+                  <p className="text-white/60 text-lg">
+                    Ask me about building AI apps, fighting complexity, or my latest experiments.
+                  </p>
+                </div>
+              </div>
+            )}
+            {messages.map((message, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} items-end gap-3`}
+              >
+                {message.role === 'assistant' && (
+                  <div className="w-10 h-10 rounded-full overflow-hidden border border-white/10 flex-shrink-0">
+                    <Image
+                      src="/headshot.jpeg"
+                      alt="Voynow AI"
+                      width={40}
+                      height={40}
+                      className="object-cover"
+                    />
+                  </div>
+                )}
+                <div
+                  className={`max-w-[70%] p-4 rounded-2xl ${message.role === 'user'
+                    ? 'bg-indigo-600 text-white rounded-br-sm'
+                    : 'bg-white/[0.03] text-white/90 rounded-bl-sm'
+                    }`}
+                >
+                  <p className="text-lg leading-relaxed">{message.content}</p>
+                </div>
+                {message.role === 'user' && (
+                  <div className="w-10 h-10 rounded-full bg-white/[0.05] flex items-center justify-center flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white/40">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                  </div>
+                )}
+              </motion.div>
+            ))}
+            <div ref={messagesEndRef} />
+          </div>
+
+          {/* Input Form */}
+          <form onSubmit={(e) => handleSubmit(e)} className="px-6 py-5 border-t border-white/[0.06] bg-black/20">
+            <div className="flex gap-4">
+              <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Ask me anything..."
+                className="flex-1 bg-white/[0.03] border border-white/[0.06] rounded-xl px-6 py-4 text-white/90 text-lg focus:outline-none focus:border-indigo-500/50 placeholder:text-white/40"
+                disabled={isLoading}
+              />
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="px-8 py-4 rounded-xl bg-indigo-600 text-white hover:bg-indigo-500 transition-colors disabled:opacity-50 font-medium text-lg flex items-center gap-3"
+              >
+                {isLoading ? (
+                  <div className="w-6 h-6 border-2 border-white/20 border-t-white/90 rounded-full animate-spin" />
+                ) : (
+                  <>
+                    <span>Send</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <line x1="22" y1="2" x2="11" y2="13"></line>
+                      <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                  </>
+                )}
+              </button>
+            </div>
+          </form>
+        </div>
+      </motion.div>
+    </>
+  );
+}
+
 /** Main component with enhanced layout and animations */
 export default function Home() {
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
   return (
     <main className="min-h-screen bg-neutral-950 text-white selection:bg-white/20">
       <Navbar />
@@ -288,7 +541,7 @@ export default function Home() {
           <motion.div
             initial={{ y: 20 }}
             animate={{ y: 0 }}
-            className="pt-4"
+            className="pt-4 flex items-center justify-center gap-4"
           >
             <motion.a
               whileHover={{ scale: 1.02, backgroundColor: 'rgba(255, 255, 255, 0.08)' }}
@@ -309,6 +562,20 @@ export default function Home() {
               </svg>
               Schedule a call
             </motion.a>
+
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => setIsChatOpen(true)}
+              className="inline-flex items-center gap-2 px-8 py-3 rounded-full
+                        bg-indigo-600 text-white font-medium
+                        hover:bg-indigo-500 transition-all duration-300 text-lg"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+              Chat with Voynow AI
+            </motion.button>
           </motion.div>
         </div>
       </motion.section>
@@ -380,6 +647,8 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      <ChatInterface isOpen={isChatOpen} setIsOpen={setIsChatOpen} />
     </main>
   );
 }
