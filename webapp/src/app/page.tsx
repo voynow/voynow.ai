@@ -543,7 +543,7 @@ export default function Home() {
           <motion.div
             initial={{ y: 20 }}
             animate={{ y: 0 }}
-            className="pt-4 flex items-center justify-center gap-4"
+            className="pt-4 flex flex-col md:flex-row items-center justify-center gap-4"
           >
             <motion.a
               whileHover={{ scale: 1.02, backgroundColor: 'rgba(255, 255, 255, 0.08)' }}
@@ -551,10 +551,10 @@ export default function Home() {
               href="https://calendly.com/voynow99/30min"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full
+              className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full
                         bg-white/[0.03] border border-white/10
                         text-white/80 hover:text-white font-medium
-                        transition-all duration-300 text-sm md:text-lg"
+                        transition-all duration-300 text-lg"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
@@ -569,9 +569,9 @@ export default function Home() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => setIsChatOpen(true)}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full
+              className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full
                         bg-indigo-600 text-white font-medium
-                        hover:bg-indigo-500 transition-all duration-300 text-sm md:text-lg"
+                        hover:bg-indigo-500 transition-all duration-300 text-lg"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
