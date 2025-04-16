@@ -551,7 +551,7 @@ export default function Home() {
               href="https://calendly.com/voynow99/30min"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-3 rounded-full
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full
                         bg-white/[0.03] border border-white/10
                         text-white/80 hover:text-white font-medium
                         transition-all duration-300 text-sm md:text-lg"
@@ -569,7 +569,7 @@ export default function Home() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => setIsChatOpen(true)}
-              className="inline-flex items-center gap-2 px-8 py-3 rounded-full
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full
                         bg-indigo-600 text-white font-medium
                         hover:bg-indigo-500 transition-all duration-300 text-sm md:text-lg"
             >
