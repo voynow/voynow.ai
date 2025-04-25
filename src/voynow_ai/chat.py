@@ -37,13 +37,13 @@ async def stream_completion(prompt: str) -> AsyncGenerator[str, None]:
         + get_data()
         + "\n\nAnd here is an article that Jamie posted a while back:\n\n"
         + get_article()
-        + "\n\nNote: Be concise and never use emojis."
     )
+    user_message = f"Respond given the following chat history\n\n---\n\n{prompt}\n\n---\n\nNote: Be very concise and respond in the style of Jamie."
     response = await client.chat.completions.create(
         model="gpt-4.1-2025-04-14",
         messages=[
             {"role": "system", "content": sys_message},
-            {"role": "user", "content": prompt},
+            {"role": "user", "content": user_message},
         ],
         stream=True,
         temperature=1,

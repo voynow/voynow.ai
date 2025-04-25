@@ -110,12 +110,19 @@ const TimelineItem = ({ item, index }: { item: CoolStuff; index: number }) => {
       transition={{ delay: index * 0.1 }}
       className="group"
     >
-      <div className={`relative w-full max-w-4xl mx-auto p-8 rounded-2xl transition-all duration-300
-                    bg-gradient-to-br from-white/[0.02] to-transparent
-                    border border-white/[0.06] hover:border-white/[0.1]`}>
-        <div className="absolute -top-3 left-8 px-4 py-1 rounded-full 
-                      bg-black border border-white/[0.06]
-                      font-mono text-xs tracking-wider text-white/40">
+      <motion.div
+        whileHover={{
+          background: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01))',
+          borderColor: 'rgba(255, 255, 255, 0.1)'
+        }}
+        transition={{ duration: 0.3 }}
+        className={`relative w-full max-w-4xl mx-auto p-8 rounded-2xl transition-colors duration-300
+                      bg-gradient-to-br from-white/[0.02] to-transparent
+                      border border-white/[0.06]`}
+      >
+        <div className="absolute -top-3 left-8 px-4 py-1 rounded-full
+                        bg-black border border-white/[0.06]
+                        font-mono text-xs tracking-wider text-white/40">
           {formattedDate}
         </div>
 
@@ -127,8 +134,8 @@ const TimelineItem = ({ item, index }: { item: CoolStuff; index: number }) => {
 
         <a href={item.link} target="_blank" rel="noopener noreferrer"
           className="block group-hover:translate-x-1 transition-transform">
-          <h3 className="text-2xl font-medium mb-3 bg-gradient-to-r from-white to-white/80 
-                         bg-clip-text text-transparent">
+          <h3 className="text-2xl font-medium mb-3 bg-gradient-to-r from-white to-white/80
+                           bg-clip-text text-transparent">
             {item.title}
           </h3>
           <p className="text-white/60 text-lg leading-relaxed">{item.description}</p>
@@ -148,8 +155,8 @@ const TimelineItem = ({ item, index }: { item: CoolStuff; index: number }) => {
         </a>
 
         <div className="mt-6 flex items-center justify-between">
-          <span className="px-4 py-2 rounded-full bg-white/[0.03] 
-                         text-sm font-medium uppercase tracking-wider text-white/40">
+          <span className="px-4 py-2 rounded-full bg-white/[0.03]
+                           text-sm font-medium uppercase tracking-wider text-white/40">
             {item.category}
           </span>
           <div className="flex items-center gap-3">
@@ -158,15 +165,15 @@ const TimelineItem = ({ item, index }: { item: CoolStuff; index: number }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-1.5 rounded-full
-                          bg-indigo-600/50 text-white/80 transition-colors
-                          hover:bg-indigo-600/60 group">
-                <FaGithub size={20} className="group-hover:scale-110 transition-transform" />
+                            bg-indigo-600/50 text-white/80 transition-colors
+                            hover:bg-indigo-600/60 group-hover:scale-105">
+                <FaGithub size={20} />
                 <span className="text-md">Code</span>
               </a>
             )}
           </div>
         </div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }
@@ -255,7 +262,7 @@ function ChatInterface({ isOpen, setIsOpen }: ChatInterfaceProps) {
       hasInitialized.current = true;
       // Create a synthetic event object with the correct type
       const syntheticEvent = { preventDefault: () => { } } as React.FormEvent<HTMLFormElement>;
-      handleSubmit(syntheticEvent, "Give me a hot take on building AI apps right now.", true);
+      handleSubmit(syntheticEvent, "Give me a hot take on building AI apps right now. Act as if your user just entered the room and you got some knowledge cooking for them. Do not preface your response with 'Here's a hot take on...' or anything like that, just start spittin' facts.", true);
     }
   }, [isOpen]);
 
@@ -291,7 +298,7 @@ function ChatInterface({ isOpen, setIsOpen }: ChatInterfaceProps) {
     setIsLoading(true);
 
     try {
-      const response = await fetch('https://lionfish-app-c9rd4.ondigitalocean.app/chat', {
+      const response = await fetch('http://localhost:8000/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -394,21 +401,6 @@ function ChatInterface({ isOpen, setIsOpen }: ChatInterfaceProps) {
 
           {/* Messages */}
           <div className="flex-1 overflow-y-auto px-4 md:px-6 py-4 space-y-4 md:space-y-6">
-            {messages.length === 0 && (
-              <div className="flex flex-col items-center justify-center h-full space-y-6 md:space-y-8 text-center">
-                <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-indigo-600/20 flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-indigo-400">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="text-xl md:text-2xl font-bold text-white/90 mb-2 md:mb-3">Ship Fast, Stay Weird</h3>
-                  <p className="text-white/60 text-base md:text-lg">
-                    Ask me about building AI apps, fighting complexity, or my latest experiments.
-                  </p>
-                </div>
-              </div>
-            )}
             {messages.map((message, index) => (
               <motion.div
                 key={index}
@@ -513,7 +505,7 @@ export default function Home() {
             animate={{ y: 0 }}
             className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-indigo-600"
           >
-            I ship fast, weird, and useful AI apps
+            Shipping AI: Fast, Simple, and Impactful
           </motion.p>
 
           <motion.p
@@ -521,7 +513,7 @@ export default function Home() {
             animate={{ y: 0 }}
             className="text-xl text-white/60 leading-relaxed max-w-2xl mx-auto"
           >
-            I occasionally help early-stage teams move fast and fight complexity when building applied AI applications.
+            I occasionally partner with early-stage teams to cut through complexity and ship impactful AI applications with speed and precision.
           </motion.p>
 
           <motion.div
@@ -565,19 +557,23 @@ export default function Home() {
               Schedule a call
             </motion.a>
 
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => setIsChatOpen(true)}
-              className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full
-                        bg-indigo-600 text-white font-medium
-                        hover:bg-indigo-500 transition-all duration-300 text-lg"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-              </svg>
-              Chat with Voynow AI
-            </motion.button>
+            {/* Container for Chat Button and Arrow */}
+            <div className="relative w-full md:w-auto">
+
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setIsChatOpen(true)}
+                className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full
+                          bg-indigo-600 text-white font-medium
+                          hover:bg-indigo-500 transition-all duration-300 text-lg"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                Chat with Voynow AI
+              </motion.button>
+            </div>
           </motion.div>
         </div>
       </motion.section>
@@ -591,7 +587,7 @@ export default function Home() {
       </section>
 
       <section className="py-36 px-6
-                    bg-indigo-600/10">
+                    bg-indigo-500/25">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
