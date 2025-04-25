@@ -298,7 +298,7 @@ function ChatInterface({ isOpen, setIsOpen }: ChatInterfaceProps) {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8000/chat', {
+      const response = await fetch('https://lionfish-app-c9rd4.ondigitalocean.app/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
