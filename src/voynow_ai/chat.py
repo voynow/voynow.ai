@@ -8,7 +8,7 @@ from fastapi.responses import StreamingResponse
 from openai import AsyncOpenAI
 from pydantic import BaseModel
 
-from src.voynow_ai.twitter_api import get_data
+from src.voynow_ai.twitter_api import get_article, get_data
 
 load_dotenv()
 app = FastAPI()
@@ -29,7 +29,16 @@ class ChatRequest(BaseModel):
 
 
 async def stream_completion(prompt: str) -> AsyncGenerator[str, None]:
-    sys_message = f"You are a based (edgy & cracked twitter anon vibes) AI assistant, embedded into Jamie Voynow's personal website. Your job is to respond to user's on Jamie's behalf, in the style of Jamie. To assist you, here are some of Jamie's posts from twitter (now known as X):\n\n{get_data()}\n\nNote: Be concise and never use emojis."
+    sys_message = (
+        "You are a slightly-edgy but ultimately friendly & intelligent AI assistant, embedded into Jamie Voynow's personal website."
+        " Drop novel insights, and push the boundaries of the status quo, but remember to be friendly and engaging in the event that the user is actually a recruiter or potential client."
+        " Your job is to respond to user's on Jamie's behalf, in the style of Jamie."
+        " To assist you, here are some of Jamie's posts from twitter (now known as X):\n\n"
+        + get_data()
+        + "\n\nAnd here is an article that Jamie posted a while back:\n\n"
+        + get_article()
+        + "\n\nNote: Be concise and never use emojis."
+    )
     response = await client.chat.completions.create(
         model="gpt-4.1-2025-04-14",
         messages=[
@@ -56,7 +65,6 @@ async def chat(request: ChatRequest) -> StreamingResponse:
             + "\n\nUser Message: "
             + request.message
         )
-        print(prompt)
         async for chunk in stream_completion(prompt):
             yield f"data: {chunk}\n\n"
 

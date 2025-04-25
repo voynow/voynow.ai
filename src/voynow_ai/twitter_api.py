@@ -1,6 +1,5 @@
 data = """Sun Apr 13 2025: Even if I exited @ $millions I'd still be shipping on the TL, and building my brand. This is why I cannot be stopped
 Sun Apr 13 2025: people hallucinate just as much as (if not more than) LLMs, but yall ain't ready for that conversation
-Sun Apr 13 2025: @unusual_whales Ahh now Ackman is in support of this administration interesting!
 Sat Apr 12 2025: @willccbb yep seems so simple - what took them so long to ship this?
 Sat Apr 12 2025: @levelsio this extrapolation is hilarious https://t.co/wJdGkw3bpd
 Sat Apr 12 2025: How to Vibe Code without getting lost in the sauce My take on the stages of Vibe Coding as software products evolve from demo to production Demo: Pure Vibes Get the demo out as fast as possible despite the grossness of the code. Validate quickly. A landing page, a notebook, or
@@ -37,7 +36,7 @@ Wed Mar 26 2025: Just updated ChatWithJFKFiles what do you guys think? https://t
 Tue Mar 25 2025: @unusual_whales Shout out to @howardlutnick for calling it first
 Tue Mar 25 2025: THEY DELETED ALL OF MY DRAFTS 😭 Just imagine this is a banger from my drafts and engage accordingly
 Sat Mar 22 2025: @tunahorse21 at chilis can't talk rn https://t.co/qdHpq8znUh
-Thu Mar 20 2025: The aftermath ... no shot this number is real right?? https://t.co/JlFQ9YcjwK
+Thu Mar 20 2025: The aftermath ... no shot this number is real right?? https://t.co/JlFQ9YcjwK  {{over 15k users in two days}}
 Wed Mar 19 2025: ChatWithJFKFiles was just the beginning. Y'all are NOT ready for what's next https://t.co/DOzbbC7tuz
 Wed Mar 19 2025: 100+ stars on Github is worth 100k followers on twitter. This is the conversation rate I don't make the rules. https://t.co/SJt4q27rkD
 Wed Mar 19 2025: New Feature Drop! Citation Summarization on ChatWithJFKFiles Citations are critical for confidence in any RAG application. Diving into the raw underlying documents is key to validating the information being provided by a chat system. One of the biggest issues with the initial https://t.co/WwoqOqwzD1
@@ -52,7 +51,6 @@ Tue Mar 18 2025: Annnnd if any of you sugar mommies / daddies want to fund me, I
 Tue Mar 18 2025: Current I have indexed 30% of the documents. Will continue indexing as the night goes on. stay tuned
 Tue Mar 18 2025: Fully open source for the win https://t.co/TWfnJPDAEU
 Tue Mar 18 2025: RE-LAUNCHING Chat With JFK Files . com Updated TODAY with new documents from March 18th 2025. https://t.co/hXqgs754Aw
-Tue Mar 18 2025: @PatriotRose17 @Rasmussen_Poll when the full batch drops, I will. https://t.co/qsPtrB3WWz
 Tue Mar 18 2025: GM today is going to be a YUUGGE day https://t.co/o9DpTnSQyN
 Mon Mar 17 2025: @rankintweets @joinwarp Saturdays &amp; Mondays ✅ https://t.co/ZCypVqr3wk
 Sun Mar 16 2025: I'm using my .env as a database and god I've never felt so free https://t.co/A6YPBXNpmZ
@@ -67,7 +65,7 @@ Mon Feb 24 2025: @abacaj we knew gpt5 was going to be underwhelming when they di
 Mon Feb 24 2025: @mwfowlie Dude yes FAANG eng GroupThink is not helpful for 99.9% of use cases. Zuck famously didn't give a shit about scale until he hit scaling issues, instead he just shipped And yeah message queues are inherently not real time lol
 Sun Feb 23 2025: This take is so bad. I built a viral chat app that scaled to thousands of users and broke EVERY rule Alex claims is required for a "well-designed" application. &gt;No, you don't need RabbitMQ &gt;No, you don't need microservices &gt;No, you don't need to design for OpenAI rate limits
 Sun Feb 23 2025: @vivek_naskar i feel like 80% of these are irrelevant though
-Fri Feb 21 2025: For $40, you could spin up 3–5 apps on DigitalOcean in a weekend No one cares about multi-leader replication or B-Trees. The only thing that really matters is good product and distribution https://t.co/lMvwvUxuVI
+Fri Feb 21 2025: For $40, you could spin up 3-5 apps on DigitalOcean in a weekend No one cares about multi-leader replication or B-Trees. The only thing that really matters is good product and distribution https://t.co/lMvwvUxuVI
 Thu Feb 20 2025: @paulg "If Zuck and Alex Wang did it I need to do it too!" not a good idea
 Thu Feb 20 2025: Book is mid. Stop larping and go build something https://t.co/ZPqN0S4P07
 Thu Feb 20 2025: @signulll @0xluffyb seniority in BigCo is derived from loyalty not ability it seems
@@ -80,7 +78,6 @@ Mon Feb 17 2025: I've had the urge for months/years to build an AI devtools comp
 Sun Feb 16 2025: Today I set out on a mission to see how fast I could go from idea to launch. And 10 hours later here it is: ship fast or die . com A leaderboard celebrating builders who ship - Ship faster and rank higher - Less code ranks higher than more code - GitHub stars give you a boost https://t.co/5cH4FEiKS7
 Sat Feb 15 2025: You add me to your repo and my first commit: &gt;33 files changed &gt;7k LoC added &gt; git commit -m "cool new feature" wyd in this scenario? https://t.co/bNFTDsbhGb
 Sat Feb 15 2025: Early generative models had this raw, dreamlike quality - unfortunately for the sake of "accuracy" this seems to be lost today https://t.co/OIeKVWuKZJ
-Fri Feb 14 2025: @minamisatokun yooo I was fr just rereading this coincidentally
 Wed Feb 12 2025: @jxnlco and o3 is just 4o with a for loop its for loops all the way down
 Wed Feb 12 2025: X/twitter is not a posting app, its a DMing app. Making friends &gt;&gt;&gt;&gt; shouting into the void. Leveraging this correctly will make or break your experience here
 Mon Feb 10 2025: Credibility in online communities is the only moat in the post scarcity world
@@ -97,9 +94,7 @@ Mon Feb 03 2025: At the risk of sounding annoying - I need to post this one last
 Sun Feb 02 2025: LAUNCHING 🚨 Crush Your Race I've built v1 of the world's first ai-powered running coach: ✔️ Generate a custom-tailored running plan based on your Strava data, all in one click. ✔️ Get hyper-personalized adjustments live as you train, so you can run smarter, not harder. Link https://t.co/SiJZp61Me8
 Sun Feb 02 2025: I have a suspicion that this is bigger than rate limits. openai._base_client:_base_client.py:1653 Retrying request to /chat/completions in 0.792889 seconds ... APIConnectionError('Connection error.') Has anyone encountered this before? It seems that the error is intermittent
 Sun Feb 02 2025: @OpenAI I'm already Tier 3, which is insane, but 800,000 TPM for 4o just isnt enough.....
-Sun Feb 02 2025: Can someone please help me get a higher rate limit @OpenAI 🙏🙏🙏 
-INFO openai._base_client:_base_client.py:1653 Retrying request to /chat/completions in 0.958383 seconds INFO openai._base_client:_base_client.py:1653 Retrying request to /chat/completions in 1.741543
-Fri Jan 31 2025: @spectatorindex Well, would you look at that https://t.co/mVrdGhDn77
+Sun Feb 02 2025: Can someone please help me get a higher rate limit @OpenAI 🙏🙏🙏 INFO openai._base_client:_base_client.py:1653 Retrying request to /chat/completions in 0.958383 seconds INFO openai._base_client:_base_client.py:1653 Retrying request to /chat/completions in 1.741543
 Wed Jan 29 2025: First million impression week AMA https://t.co/LmnSU41RLm
 Tue Jan 28 2025: This person is impersonating me and scamming with crypto, tpot do your thing (report this guy) @ ntdillon https://t.co/XkAtlF2JiC
 Tue Jan 28 2025: @ludwigABAP researchooors should focus on creating value
@@ -108,11 +103,9 @@ Sun Jan 26 2025: the algo is cooking right now my tl is like a work of art
 Sun Jan 26 2025: 24 isnt enough. I need more hours in a day. Who's building this???
 Sat Jan 25 2025: @patternedchair @atensnut Definitely will fix for v2!
 Sat Jan 25 2025: @ccurtis584 @atensnut yep its rag! Using: https://t.co/2k8M6EGuBE
-Sat Jan 25 2025: @rexstjohn @atensnut using the existing documents - will update as more come in
-Sat Jan 25 2025: @atensnut I literally built this https://t.co/WKGUnq9gEa
-Sat Jan 25 2025: Almost doubled my followers this week - seems like a good time to introduce myself: Hi, I'm Jamie Voynow ("Voy - now"). By day, I'm a machine learning engineer on Wall Street. By night, I'm a founder. Some of you might know me as the chatwithjfkfiles(dot)com guy, but for the https://t.co/3paOUDXibM
+Sat Jan 25 2025: @atensnut I literally built this https://chatwithjfkfiles.com
+Sat Jan 25 2025: Almost doubled my followers this week - seems like a good time to introduce myself: Hi, I'm Jamie Voynow ("Voy - now"). By day, I'm a machine learning engineer on Wall Street. By night, I'm a founder. Some of you might know me as the chatwithjfkfiles(dot)com guy, but for the past few months, I've been building something entirely different at the intersection of running and AI (big launch next week).\nA quick timeline of the journey so far:\n2017 — Started college, dropped physics, switched to CS\n2020 — Got into ML research, received an NSF grant\n2021 — Worked on ballistic missile defense as a Data Scientist\n2022 — Ran a marathon\n2023 — ChatGPT changed the world\n2024 — Moved to NYC, joined an amazing team, doubled my salary\n2025 — Built my first viral app (and it's still January)\nThis year is about building, learning, and connecting. My DMs are always open - let's chat.\nStill just getting started,\nJamie
 Sat Jan 25 2025: @swyx it's easy to sit back and critique this but this is the correct way to be entrepreneurial by taking many bets
-Fri Jan 24 2025: @paularambles why does zuck kinda look like Daniel penny https://t.co/yE5NX35Zgx
 Fri Jan 24 2025: My favorite outcome from going viral overnight is that 27+ people liked my code enough to save it for later. Proud engineer moment. https://t.co/pZAC4I8K4r
 Fri Jan 24 2025: @_401_Nick True yeah there are a ton of optimizations that could be made if we wanted to improve this thing - for instance my chunking strategy was not very sophisticated - many things like this I skipped over for the sake of dev velocity
 Fri Jan 24 2025: We've burned through 7.5 million tokens in &lt;12h 👀 https://t.co/Q36nVpbwpY
@@ -120,23 +113,76 @@ Fri Jan 24 2025: @scatteredbrainn theoretically it shouldn't be very good at sum
 Thu Jan 23 2025: @kdotmixalot just some nextjs. nothing fancy. used cursor to help design it
 Thu Jan 23 2025: looks like yall are having too much fun and took down my server THANKS
 Thu Jan 23 2025: @SterlingCooley updating as they come - will add the new ones when they drop
-Thu Jan 23 2025: @dreamworks2050 just these, adding more as they come:
-Thu Jan 23 2025: @rcweston used this data - will add more as they come: https://t.co/4pzKZ11Jep
 Thu Jan 23 2025: @n4v1g8 i was thinking about the idea all day it just exploded out of me this afternoon hahahaha
-Thu Jan 23 2025: @TheIshanGoswami broo fingers crossed. thank you man. I learned a lot from your launches!
 Thu Jan 23 2025: @TechMemeKing I couldn't get the idea out of my head I had to build it, thanks bro
-Thu Jan 23 2025: @AICounselDallas still waiting on new documents yes but:
-Thu Jan 23 2025: @MartyMansion “Who killed him” is a good one, but we have to wait for the new documents to be release unfortunately to get all the details
 Thu Jan 23 2025: @joeybab3 yessir saw the opportunity and went for it
 Thu Jan 23 2025: @Aizkmusic Just trying to follow in your footsteps bro
-Thu Jan 23 2025: LAUNCHING Chat With JFK Files . com Using documents from the JFK Assassination National Archive Records (linked below) https://t.co/FjNIvxTBqP
+Thu Jan 23 2025: LAUNCHING Chat With JFK Files . com Using documents from the JFK Assassination National Archive Records (linked below) https://t.co/FjNIvxTBqP {{this got almost 500k impressions}}
 Tue Jan 21 2025: @IterIntellectus I will live to 150 years old and build an empire
-Mon Jan 20 2025: @IterIntellectus babe wake up new normal distribution meme format just dropped
 Sat Jan 18 2025: party trick: solving leetcode hards while intoxicated
 Fri Jan 17 2025: If you're not using o1, you're missing out big time. This is your sign to reconsider. I was a hater at first, bc theres a bit of a learning curve (see "o1-skill-issue" linked in the comments) - but for massive/messy context its sota for sure https://t.co/Cafe6Q7m5I
-Wed Jan 15 2025: Onboarding beta users ✅✅✅ Jamie: 1 Deadlines: 0 https://t.co/Xpyhf1TLzt
-Mon Jan 13 2025: The app store review team has done"""
+Wed Jan 15 2025: Onboarding beta users ✅✅✅ Jamie: 1 Deadlines: 0 https://t.co/Xpyhf1TLzt"""
+
+
+article = """Chat Apps > MCP, Agents, Etc
+If you spend enough time on Twitter, you might think that "RAG is dead" or that "chat apps are cringe" and that agentic systems, model context protocol MCP, and other bleeding-edge ideas are the only things that matter. The reality is that Chat applications still make up 95% of successful production LLM projects. And while long term I am bullish on agents, my job is to create value today.
+This article is my raw, unfiltered playbook on how I build and scale chat apps fast by minimizing complexity, and getting real products into the hands of users ASAP.
+Why You Should Believe Me
+You probably know me as the Chat with the JFK Files guy. The day those files dropped, I built and shipped the app from 0 to 1 in just 4 hours. It took off fast: racking up 1M+ views on Twitter, tens of thousands of users, and just last week alone, it processed 83,000+ user events.
+Google Analytics from this week
+What most people don't know is that I've been building chat apps like this for years - it took years of preparation to be able to ship an effective chat app in an afternoon. By now, I've fine-tuned a brutally simple, radically anti-complex strategy that gets the job done. Some of it may go against intuition, but it works - serving thousands of users this week alone.
+Basic Requirements
+This is the quick and dirty way to build a chat app. And thats for the best. Odds are, your app won't be handling enterprise-scale traffic right away, so the goal is to write the least amount of code necessary to get a working product in front of users.
+At minimum you will need the following
+OCR: If needed, convert documents into text
+Chunking: Converting text into bite-sized LLM-consumable pieces
+Embeddings: Converting chunks into vectors
+Vector DB: System for storing and retrieving embeddings/chunks
+Language Model: LLM for answering Qs based on retrieved chunks
+Frontend/Backend/Infra: The apps and compute required to get the job done
+That's it. There are plenty of other optimizations that you could spend days or weeks on, but imo this is all you need to ship.
+Don't Think, Just Ship
+I feel very strongly that building fast and dirty is far more important than obsessing over details early on. No one cares about how good your ideas are if they never see the light of day. You won't build a following by talking about building - rather then tell people that you are legit, show them (by shipping). The same goes for stakeholders and customers: no one will praise you until they can actually use what you've built. So stop thinking and build that demo.
+Critics will argue that once you find PMF and scale, you've f*cked yourself with bad architecture and tech debt; My counter: I'd rather deal with the consequences of suboptimal architecture then never ship at all.
+OCR (If Applicable)
+OK you have the documents, but what about converting them to useable text? OCR is the go-to solution, and frankly I don't have strong opinions on how you do it.
+If your workload is small (<1k files), you could just rip it locally. I used pytesseract locally simply because I had some code laying around.
+If your workload is large, if you want convenience, if you have cash to burn: use a cloud OCR service (Azure OCR, https://chunkr.ai/, etc)
+Slight tangent: Gemini is basically SOTA in OCR in terms of both cost and accuracy (https://www.sergey.fyi/articles/gemini-flash-2). As LLMs improve, I expect this gap to widen where Gemini and co become the standard for fast, cheap, accurate OCR. I have yet to test this personally, but its worth exploring.
+Chunking
+One of my favorite topics! Here's a quick story to illustrate my opinion.
+A coworker once dumped a failing project on me. The app barely worked: it was too expensive and way too slow. The problem? An over-engineered chunking strategy (using a sentence-level LLM classifier with max voting). Being me, I decided to do something quite radical to test my intuition. I threw out the old chunker and replaced it with dumb_fast_chunker, which split on newline characters and merged small chunks. No fancy classifiers, no extra steps. And to everyones surprise, our evals didn't budge. To this day dumb_fast_chunker is used in production 1000s of times per year.
+The takeaway? Over-optimizing on chinking early on is a waste of time. Do the simple thing, build evals, and be data driven about further optimization.
+Embeddings/Vector Database
+Do whatever you gotta do to make your vector operations fast. Contrary to popular belief, at small-medium scale you can do this entirely in memory.
+Generate embeddings: Just use OpenAI and don't question it (more on this later)
+Store your embeddings: Create a Polars DF containing embeddings, chunks, metadata and use polars.DataFrame.write_parquet to create your “DB”
+Retrieve embeddings: Read parquet file (possibly using functools.lru_cache) and use Numpy to calculate cosine similarity
+Yes, the minimal approach is radical, but its unbelievably fast and simple for most workloads. Believe it or not, this is exactly how the first release of ChatWithJFKFiles was designed.
+Okay okay - this does come with a huge caveat: for large workloads, you'll need a real vector DB to offload memory and compute from your server. Here I would recommend using Pinecone or equivalent, I've had no problems using Pinecone free tier.
+Language Models
+You need an LLM, but don't overthink this.
+Benchmarks and performance metrics don't matter if the model fails under production workloads. Nothing beats OpenAI models in terms of performance and reliability - especially under workloads of high concurrency.
+Rate limits are often cited as an issue, but OpenAI scales usage limits for its paying customers. For instance, my GPT-4o limit is currently sitting at 50M tokens per minute. If I ever hit that kind of load, we've got bigger problems (time to raise seed round).
+Frontend, Backend, Infra
+This is mostly personal preference - except for python, which is objectively the best language for AI development.
+Frontend: I use Next.js + Vercel because it abstracts away the annoying and non differentiated parts of development (CICD, hosting, logging, etc). Sorry Vercel haters please forgive me.
+Backend: Fast API & Digital Ocean App Platform > AWS. DO is cheaper, simpler, and again has built in CICD which is massive. In the event that your product goes viral, DO App Platform makes scaling very easy (more on this later).
+These are the tools I use, but feel free to use what lets you ship the fastest.
+Operating at Scale
+This architecture actually scales well - but of course simplicity comes at a cost.
+Your backend won't be able to handle major load on a single node. The fix? If you are using digital ocean, you can easily scale up the number of containers you are running.
+Yes, it'll get expensive in the short term. But if your app is going viral, you only need to stomach the costs for a day or two. If traffic stays high, congrats - you have a real product. Monetize ASAP. Hire engineers. Maybe raise VC.
+Stop worrying about costs. Building credibility is more valuable than a $20 bill from OpenAI + a $20 bill from digital ocean.
+What Now
+I'm not sure if I'll keep launching new released of JFK files or similar projects. While I am bullish on chat apps, something tells me its time to take on bigger challenges.
+That said, ChatWithJFKFiles isn't going anywhere, and I will continue sharing what I've learned. If you want to chat, HMU! I can't promise that I will have time for everyone, but I'm always looking to connect with like-minded people.
+And yeah, at the risk of sounding cringe, I am open to business opportunities. Need help building a chat app for your business? lets talk"""
 
 
 def get_data() -> str:
     return data
+
+
+def get_article() -> list[str]:
+    return article
