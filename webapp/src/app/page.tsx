@@ -140,7 +140,7 @@ const TimelineItem = ({ item, index }: { item: CoolStuff; index: number }) => {
           </h3>
           <p className="text-white/60 text-lg leading-relaxed">{item.description}</p>
 
-          {item.featured && item.image && (
+          {item.image && (
             <div className="mt-6 rounded-xl overflow-hidden border border-white/10">
               <Image
                 src={item.image}
@@ -190,32 +190,28 @@ const COOL_STUFF: CoolStuff[] = [
     image: "/jfk-files.png"
   },
   {
+    date: "2025-04-30",
+    title: "Viral Take on Vibe Coding",
+    description: "I've become an expert at LLM assisted software development. While it obviously improves productivity, in this post I highlight the dangers & pitfalls that come with it.",
+    link: "https://x.com/jamievoynow/status/1917367447767703668",
+    category: "tweet",
+    image: "/vibe-coding.png"
+  },
+  {
     date: "2025-04-08",
     title: "Spicy Take on OpenAI Evals",
     description: "My opinions on the new OpenAI evals platform seemed to resonate with the community. Spoiler: I'm not a fan.",
     link: "https://x.com/jamievoynow/status/1909729715218153544",
-    category: "tweet"
+    category: "tweet",
+    image: "/openai-evals.png"
   },
   {
     date: "2025-03-23",
     title: "No-BS Shipping Chat Apps That Scale",
     description: "Agents who? Chat apps make up 95% of successful production LLM projects. Here's my guide to building them fast.",
     link: "https://x.com/jamievoynow/status/1903832332462649472",
-    category: "article"
-  },
-  {
-    date: "2025-02-23",
-    title: "Complexity is the Enemy",
-    description: "My sassy response to 'How to Build an LLM Chat App: The New Litmus Test for Junior Devs'",
-    link: "https://x.com/jamievoynow/status/1893788406901285250",
-    category: "tweet"
-  },
-  {
-    date: "2025-02-03",
-    title: "I Was Plagiarized",
-    description: "@ntdillon plagiarized my work, stole my virtual identity, ran a crypto scam, and dissapeared.",
-    link: "https://x.com/jamievoynow/status/1886555832814641255",
-    category: "tweet"
+    category: "article",
+    image: "/shipping-chat-apps.png"
   },
   {
     date: "2025-02-02",
@@ -223,14 +219,16 @@ const COOL_STUFF: CoolStuff[] = [
     description: "I built an AI running coach application (deployed to the iOS App Store) helping runners train for the marathon.",
     link: "https://crushyourrace.com",
     github_link: "https://github.com/voynow/crushyourrace",
-    category: "project"
+    category: "project",
+    image: "/crushyourrace.png"
   },
   {
     date: "2024-11-24",
     title: "20 min+ Marathon PR",
     description: "Competed in my second marathon, the Philadelphia Marathon, and finished in under 4 hours for the first time.",
     link: "https://www.strava.com/activities/12974216838",
-    category: "race"
+    category: "race",
+    image: "/philly-marathon.png"
   }
 ];
 
@@ -587,7 +585,7 @@ export default function Home() {
       </section>
 
       <section className="py-36 px-6
-                    bg-indigo-500/25">
+                    bg-indigo-950/50">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
