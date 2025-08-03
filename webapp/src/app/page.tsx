@@ -33,7 +33,7 @@ function Navbar() {
                 className="object-cover"
               />
             </div>
-            <span className="text-white font-medium">Jamie Voynow</span>
+            <span className="text-white font-medium hidden sm:inline">Jamie Voynow</span>
           </div>
 
           <div className="flex items-center gap-4">
