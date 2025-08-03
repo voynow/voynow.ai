@@ -215,7 +215,7 @@ export default function Home() {
         <footer className="mt-20 relative">
           <div className="bg-gradient-to-br from-gray-950/90 to-gray-900/90 backdrop-blur-xl border-t border-slate-600/20 p-12 text-center">
             <div className="mb-8 mt-6">
-              <h3 className="text-2xl font-semibold text-slate-100 mb-4">Let's Connect</h3>
+              <h3 className="text-2xl font-semibold text-slate-100 mb-4">Lets Connect</h3>
               <p className="text-slate-300/80 text-lg max-w-2xl mx-auto">
                 Want to chat about AI, agents, or explore collaboration opportunities?
               </p>
@@ -231,7 +231,7 @@ export default function Home() {
                 <svg className="w-5 h-5 text-violet-300 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                 </svg>
-                <span className="text-violet-300 group-hover:text-violet-200 font-medium">Let's chat on Twitter</span>
+                <span className="text-violet-300 group-hover:text-violet-200 font-medium">Lets chat on Twitter</span>
               </a>
 
               <a
