@@ -1,5 +1,23 @@
 @import "tailwindcss";
 
+/* Global Background */
+html {
+  background: #0f172a !important;
+  background-image: linear-gradient(to bottom right, #0f172a, #111827, #1e293b) !important;
+  background-attachment: fixed !important;
+  overscroll-behavior: none;
+}
+
+body {
+  background: transparent !important;
+  min-height: 100vh;
+  overscroll-behavior: none;
+}
+
+* {
+  overscroll-behavior: none;
+}
+
 /* Custom Scrollbar Styling */
 ::-webkit-scrollbar {
   width: 10px;

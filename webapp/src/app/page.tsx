@@ -1,17 +1,5 @@
-'use client';
-
-import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
-import { BsPinFill } from 'react-icons/bs';
-import { FaGithub, FaTwitter } from 'react-icons/fa';
-import { FaLinkedin } from 'react-icons/fa6';
-
-type SocialLink = {
-  name: string;
-  url: string;
-  icon: React.ReactNode;
-};
+import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 
 type CoolStuff = {
   date: string;
@@ -20,165 +8,116 @@ type CoolStuff = {
   link: string;
   category: string;
   github_link?: string;
-  featured?: boolean;
   image?: string;
 };
 
-type Message = {
-  role: 'user' | 'assistant';
-  content: string;
-};
-
-type ChatInterfaceProps = {
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
-};
-
-/** Refined navigation with subtle animations */
+/** Simple navigation */
 function Navbar() {
-  const socialLinks: SocialLink[] = [
+  const socialLinks = [
     { name: 'Twitter', url: 'https://twitter.com/jamievoynow', icon: <FaTwitter size={20} /> },
     { name: 'GitHub', url: 'https://github.com/voynow', icon: <FaGithub size={20} /> },
     { name: 'LinkedIn', url: 'https://www.linkedin.com/in/voynow/', icon: <FaLinkedin size={20} /> }
   ];
 
   return (
-    <motion.header
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="fixed top-0 left-0 right-0 z-50 px-4 md:px-6 pt-4"
-    >
-      <nav className="max-w-5xl mx-auto rounded-full backdrop-blur-md bg-white/[0.02] border border-white/[0.05]">
-        <div className="px-4 md:px-6 h-12 flex items-center justify-between">
-          {/* Mobile: Icons only, Desktop: Icons with labels */}
+    <header className="fixed top-0 left-0 right-0 z-50 px-6 pt-4">
+      <nav className="max-w-4xl mx-auto backdrop-blur-sm border border-white/10 rounded-full">
+        <div className="px-6 h-14 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="relative w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden border border-white/10"
-            >
+            <div className="w-8 h-8 rounded-full overflow-hidden">
               <Image
                 src="/headshot.jpeg"
                 alt="Jamie Voynow"
-                width={40}
-                height={40}
-                className="object-cover w-full h-full"
-                priority
+                width={32}
+                height={32}
+                className="object-cover"
               />
-            </motion.div>
-            {/* Only show name on medium+ screens */}
-            <span className="hidden sm:block text-white/80 font-bold">
-              Jamie Voynow
-            </span>
+            </div>
+            <span className="text-white font-medium">Jamie Voynow</span>
           </div>
 
-          {/* Social Links */}
-          <div className="flex items-center gap-1 md:gap-2">
+          <div className="flex items-center gap-4">
             {socialLinks.map(({ name, url, icon }) => (
-              <motion.a
+              <a
                 key={name}
-                whileHover={{ scale: 1.1 }}
                 href={url}
-                className="p-2 rounded-full hover:bg-white/[0.06] text-white/60 hover:text-white transition-all
-                          flex items-center gap-2"
+                className="text-white/60 hover:text-white transition-colors"
                 aria-label={name}
               >
                 {icon}
-                {/* Only show labels on large screens */}
-                <span className="hidden sm:block text-sm">
-                  {name}
-                </span>
-              </motion.a>
+              </a>
             ))}
           </div>
         </div>
       </nav>
-    </motion.header>
+    </header>
   );
 }
 
-/** Enhanced timeline item with modern styling */
-const TimelineItem = ({ item, index }: { item: CoolStuff; index: number }) => {
+/** Simple card item */
+const TimelineItem = ({ item }: { item: CoolStuff }) => {
   const formattedDate = new Date(item.date).toLocaleDateString('en-US', {
     month: 'short',
     year: 'numeric'
   });
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1 }}
-      className="group"
-    >
-      <motion.div
-        whileHover={{
-          background: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01))',
-          borderColor: 'rgba(255, 255, 255, 0.1)'
-        }}
-        transition={{ duration: 0.3 }}
-        className={`relative w-full max-w-4xl mx-auto p-8 rounded-2xl transition-colors duration-300
-                      bg-gradient-to-br from-white/[0.02] to-transparent
-                      border border-white/[0.06]`}
-      >
-        <div className="absolute -top-3 left-8 px-4 py-1 rounded-full
-                        bg-black border border-white/[0.06]
-                        font-mono text-xs tracking-wider text-white/40">
-          {formattedDate}
-        </div>
+    <div className="group p-7 bg-gradient-to-br from-slate-800/60 to-slate-900/40 border border-slate-700/40 rounded-2xl h-[420px] hover:border-violet-400/40 hover:bg-slate-800/70 hover:shadow-2xl hover:shadow-violet-500/10 hover:-translate-y-1 transition-all duration-500 backdrop-blur-sm relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-violet-500/[0.02] to-blue-500/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+      <div className="relative z-10">
+        <div className="flex items-start justify-between mb-2">
+          <a href={item.link} target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">
+            <h3 className="text-lg font-semibold text-white">{item.title}</h3>
+          </a>
 
-        {item.featured && (
-          <div className="absolute top-4 right-4 text-white/40 hover:text-white transition-colors">
-            <BsPinFill size={20} />
-          </div>
-        )}
-
-        <a href={item.link} target="_blank" rel="noopener noreferrer"
-          className="block group-hover:translate-x-1 transition-transform">
-          <h3 className="text-2xl font-medium mb-3 bg-gradient-to-r from-white to-white/80
-                           bg-clip-text text-transparent">
-            {item.title}
-          </h3>
-          <p className="text-white/60 text-lg leading-relaxed">{item.description}</p>
-
-          {item.image && (
-            <div className="mt-6 rounded-xl overflow-hidden border border-white/10">
-              <Image
-                src={item.image}
-                alt={item.title}
-                width={1200}
-                height={630}
-                className="w-full h-auto object-cover hover:scale-[1.02] transition-transform duration-500"
-                priority
-              />
-            </div>
-          )}
-        </a>
-
-        <div className="mt-6 flex items-center justify-between">
-          <span className="px-4 py-2 rounded-full bg-white/[0.03]
-                           text-sm font-medium uppercase tracking-wider text-white/40">
-            {item.category}
-          </span>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 ml-4">
+            <span className="text-xs text-white/40 whitespace-nowrap">
+              {formattedDate}
+            </span>
             {item.github_link && (
-              <a href={item.github_link}
+              <a
+                href={item.github_link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-1.5 rounded-full
-                            bg-indigo-600/50 text-white/80 transition-colors
-                            hover:bg-indigo-600/60 group-hover:scale-105">
-                <FaGithub size={20} />
-                <span className="text-md">Code</span>
+                className="inline-flex items-center gap-1 px-2 py-1 bg-slate-700/40 border border-slate-600/40 rounded-md text-white/60 hover:text-white hover:bg-slate-600/40 hover:border-slate-500/40 transition-all duration-200 text-xs whitespace-nowrap"
+              >
+                <FaGithub size={12} />
+                <span>Code</span>
               </a>
             )}
           </div>
         </div>
-      </motion.div>
-    </motion.div>
+
+        <a href={item.link} target="_blank" rel="noopener noreferrer" className="block hover:text-blue-400 transition-colors">
+          <p className="text-white/70 text-sm mb-3">{item.description}</p>
+
+          {item.image && (
+            <div className="mb-3 rounded overflow-hidden">
+              <Image
+                src={item.image}
+                alt={item.title}
+                width={400}
+                height={200}
+                className="w-full h-64 object-cover"
+              />
+            </div>
+          )}
+        </a>
+      </div>
+    </div>
   );
-}
+};
 
 const COOL_STUFF: CoolStuff[] = [
+  {
+    date: "2025-07-12",
+    title: "Poker Bench",
+    description: "I simulated 100 games of Texas Hold 'em between several different frontier LLMs.",
+    link: "https://x.com/jamievoynow/status/1944082679831433670",
+    github_link: "https://github.com/voynow/poker-bench",
+    category: "project",
+    image: "/poker-bench.jpeg"
+  },
   {
     date: "2025-03-18",
     title: "Chat With JFK Files",
@@ -186,32 +125,7 @@ const COOL_STUFF: CoolStuff[] = [
     link: "https://chatwithjfkfiles.com",
     github_link: "https://github.com/voynow/chat-with-jfk-files",
     category: "project",
-    featured: true,
     image: "/jfk-files.png"
-  },
-  {
-    date: "2025-04-30",
-    title: "Viral Take on Vibe Coding",
-    description: "I've become an expert at LLM assisted software development. While it obviously improves productivity, in this post I highlight the dangers & pitfalls that come with it.",
-    link: "https://x.com/jamievoynow/status/1917367447767703668",
-    category: "tweet",
-    image: "/vibe-coding.png"
-  },
-  {
-    date: "2025-04-08",
-    title: "Spicy Take on OpenAI Evals",
-    description: "My opinions on the new OpenAI evals platform seemed to resonate with the community. Spoiler: I'm not a fan.",
-    link: "https://x.com/jamievoynow/status/1909729715218153544",
-    category: "tweet",
-    image: "/openai-evals.png"
-  },
-  {
-    date: "2025-03-23",
-    title: "No-BS Shipping Chat Apps That Scale",
-    description: "Agents who? Chat apps make up 95% of successful production LLM projects. Here's my guide to building them fast.",
-    link: "https://x.com/jamievoynow/status/1903832332462649472",
-    category: "article",
-    image: "/shipping-chat-apps.png"
   },
   {
     date: "2025-02-02",
@@ -232,419 +146,115 @@ const COOL_STUFF: CoolStuff[] = [
   }
 ];
 
-/** Location and work icons for profile section */
-const LocationIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-    <circle cx="12" cy="10" r="3"></circle>
-  </svg>
-);
-
-const WorkIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-  </svg>
-);
-
-function ChatInterface({ isOpen, setIsOpen }: ChatInterfaceProps) {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const hasInitialized = useRef(false);
-
-  // Auto-send initial message when chat opens
-  useEffect(() => {
-    if (isOpen && !hasInitialized.current) {
-      hasInitialized.current = true;
-      // Create a synthetic event object with the correct type
-      const syntheticEvent = { preventDefault: () => { } } as React.FormEvent<HTMLFormElement>;
-      handleSubmit(syntheticEvent, "Give me a hot take on building AI apps right now. Act as if your user just entered the room and you got some knowledge cooking for them. Do not preface your response with 'Here's a hot take on...' or anything like that, just start spittin' facts.", true);
-    }
-  }, [isOpen]);
-
-  // Prevent background scroll when chat is open
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [isOpen]);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, overrideMessage?: string, hideMessage?: boolean) => {
-    e.preventDefault();
-    if ((!input.trim() && !overrideMessage) || isLoading) return;
-
-    const userMessage = overrideMessage || input.trim();
-    if (!overrideMessage) setInput('');
-    if (!hideMessage) {
-      setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
-    }
-    setIsLoading(true);
-
-    try {
-      const response = await fetch('https://lionfish-app-c9rd4.ondigitalocean.app/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          message: userMessage,
-          chat_history: messages.map(m => m.content),
-        }),
-      });
-
-      if (!response.ok) throw new Error('Failed to fetch response');
-
-      const reader = response.body?.getReader();
-      if (!reader) throw new Error('No reader available');
-
-      let assistantMessage = '';
-      setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        const chunk = new TextDecoder().decode(value);
-        const lines = chunk.split('\n');
-
-        for (const line of lines) {
-          if (line.startsWith('data: ')) {
-            const content = line.slice(6);
-            assistantMessage += content;
-            setMessages(prev => {
-              const newMessages = [...prev];
-              newMessages[newMessages.length - 1] = {
-                role: 'assistant',
-                content: assistantMessage,
-              };
-              return newMessages;
-            });
-          }
-        }
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      setMessages(prev => [...prev, {
-        role: 'assistant',
-        content: 'Sorry, I encountered an error. Please try again.'
-      }]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  return (
-    <>
-      {/* Backdrop */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{
-          opacity: isOpen ? 0.5 : 0,
-          display: isOpen ? 'block' : 'none'
-        }}
-        transition={{ duration: 0.2 }}
-        className="fixed inset-0 bg-black/80 z-40"
-        onClick={() => setIsOpen(false)}
-      />
-
-      {/* Chat Interface */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{
-          opacity: isOpen ? 1 : 0,
-          scale: isOpen ? 1 : 0.95,
-          display: isOpen ? 'flex' : 'none'
-        }}
-        transition={{ duration: 0.2 }}
-        className="fixed top-0 left-0 w-full h-full md:top-[5vh] md:left-1/2 md:-translate-x-1/2 md:w-full md:max-w-6xl md:h-[90vh] z-50"
-      >
-        <div className="bg-neutral-950/95 backdrop-blur-xl border border-white/[0.06] rounded-none md:rounded-3xl overflow-hidden shadow-2xl flex flex-col w-full h-full">
-          {/* Header */}
-          <div className="flex items-center justify-between px-4 md:px-6 py-4 border-b border-white/[0.06] bg-black/20">
-            <div className="flex items-center gap-3">
-              <div className="relative">
-                <div className="w-3 h-3 md:w-4 md:h-4 bg-green-500 rounded-full animate-pulse" />
-                <div className="absolute inset-0 bg-green-500/20 rounded-full animate-ping" />
-              </div>
-              <div>
-                <span className="text-white/90 font-medium text-lg md:text-xl">Voynow AI</span>
-                <p className="text-white/40 text-xs md:text-sm">Disclaimer: Responses may not reflect actual views of Jamie Voynow</p>
-              </div>
-            </div>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="text-white/40 hover:text-white/60 p-2 hover:bg-white/[0.06] rounded-full transition-colors"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
-          </div>
-
-          {/* Messages */}
-          <div className="flex-1 overflow-y-auto px-4 md:px-6 py-4 space-y-4 md:space-y-6">
-            {messages.map((message, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} items-end gap-2 md:gap-3`}
-              >
-                {message.role === 'assistant' && (
-                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden border border-white/10 flex-shrink-0">
-                    <Image
-                      src="/headshot.jpeg"
-                      alt="Voynow AI"
-                      width={40}
-                      height={40}
-                      className="object-cover"
-                    />
-                  </div>
-                )}
-                <div
-                  className={`max-w-[85%] md:max-w-[70%] p-3 md:p-4 rounded-2xl ${message.role === 'user'
-                    ? 'bg-indigo-600 text-white rounded-br-sm'
-                    : 'bg-white/[0.03] text-white/90 rounded-bl-sm'
-                    }`}
-                >
-                  <p className="text-base md:text-lg leading-relaxed">{message.content}</p>
-                </div>
-                {message.role === 'user' && (
-                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/[0.05] flex items-center justify-center flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white/40">
-                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                      <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                  </div>
-                )}
-              </motion.div>
-            ))}
-            <div ref={messagesEndRef} />
-          </div>
-
-          {/* Input Form */}
-          <form onSubmit={(e) => handleSubmit(e)} className="px-4 md:px-6 py-4 border-t border-white/[0.06] bg-black/20">
-            <div className="flex flex-col md:flex-row gap-3 md:gap-4">
-              <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask me anything..."
-                className="flex-1 bg-white/[0.03] border border-white/[0.06] rounded-xl px-4 md:px-6 py-3 md:py-4 text-white/90 text-base md:text-lg focus:outline-none focus:border-indigo-500/50 placeholder:text-white/40"
-                disabled={isLoading}
-              />
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="px-6 md:px-8 py-3 md:py-4 rounded-xl bg-indigo-600 text-white hover:bg-indigo-500 transition-colors disabled:opacity-50 font-medium text-base md:text-lg flex items-center justify-center gap-2 md:gap-3"
-              >
-                {isLoading ? (
-                  <div className="w-5 h-5 md:w-6 md:h-6 border-2 border-white/20 border-t-white/90 rounded-full animate-spin" />
-                ) : (
-                  <>
-                    <span>Send</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <line x1="22" y1="2" x2="11" y2="13"></line>
-                      <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                    </svg>
-                  </>
-                )}
-              </button>
-            </div>
-          </form>
-        </div>
-      </motion.div>
-    </>
-  );
-}
-
-/** Main component with enhanced layout and animations */
+/** Main page component */
 export default function Home() {
-  const [isChatOpen, setIsChatOpen] = useState(false);
-
   return (
-    <main className="min-h-screen bg-neutral-950 text-white selection:bg-white/20">
-      <Navbar />
+    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 text-white relative overflow-hidden">
+      {/* Global background elements */}
+      <div className="absolute inset-0 bg-gradient-to-b from-violet-500/[0.02] via-transparent to-blue-500/[0.02]"></div>
+      <div className="absolute top-32 left-1/4 w-96 h-96 bg-violet-500/[0.015] rounded-full blur-3xl"></div>
+      <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-blue-500/[0.015] rounded-full blur-3xl"></div>
 
-      <motion.section
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="pt-45 px-6 max-w-3xl mx-auto"
-      >
-        <div className="text-center space-y-8">
-          <motion.h1
-            initial={{ y: 20 }}
-            animate={{ y: 0 }}
-            className="text-7xl font-black tracking-tight 
-                       bg-gradient-to-b from-white to-white/80 
-                       bg-clip-text text-transparent"
-          >
-            Hi, Im Jamie
-          </motion.h1>
+      <div className="relative z-10">
+        <Navbar />
 
-          <motion.p
-            initial={{ y: 20 }}
-            animate={{ y: 0 }}
-            className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-indigo-600"
-          >
-            Shipping AI: Fast, Simple, and Impactful
-          </motion.p>
+        {/* Hero Section */}
+        <section className="pt-36 pb-16 px-6 relative">
+          <div className="max-w-4xl mx-auto text-center relative z-10">
+            <div className="mb-8">
+              <h1 className="text-6xl font-bold text-slate-50 mb-6 tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-200 bg-clip-text text-transparent animate-in fade-in duration-1000">
+                Jamie Voynow
+              </h1>
 
-          <motion.p
-            initial={{ y: 20 }}
-            animate={{ y: 0 }}
-            className="text-xl text-white/60 leading-relaxed max-w-2xl mx-auto"
-          >
-            I occasionally partner with early-stage teams to cut through complexity and ship impactful AI applications with speed and precision.
-          </motion.p>
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-violet-500/15 to-blue-500/15 border border-violet-400/30 rounded-full mb-8 backdrop-blur-sm shadow-lg shadow-violet-500/10 animate-in slide-in-from-bottom-3 duration-700 delay-300">
+                <div className="w-2 h-2 bg-violet-400 rounded-full animate-pulse"></div>
+                <span className="text-violet-300 font-mono text-sm font-medium">Voynow LLC</span>
+              </div>
 
-          <motion.div
-            initial={{ y: 20 }}
-            animate={{ y: 0 }}
-            className="flex items-center justify-center gap-6 text-white/40 text-sm"
-          >
-            <div className="flex items-center gap-2">
-              <LocationIcon />
-              <span>New York City</span>
+              <h2 className="text-2xl text-slate-200 font-light mb-10 max-w-2xl mx-auto animate-in fade-in duration-1000 delay-500">
+                AI Engineer <span className="text-violet-400">•</span> Agentic Systems
+              </h2>
             </div>
-            <div className="w-1 h-1 bg-white/20 rounded-full" />
-            <div className="flex items-center gap-2">
-              <WorkIcon />
-              <span>ML Engineering @ <a href="https://www.cantor.com/" className="text-white/60 hover:text-white transition-colors">Cantor</a></span>
+
+            <p className="text-xl text-slate-300/90 max-w-3xl mx-auto leading-relaxed mb-10 font-light animate-in fade-in duration-1000 delay-700">
+              AI/ML Engineer at the frontier of AI Agent Engineering, building production Agents for Quant Research, Data Analysis, and Code Generation.
+            </p>
+
+            <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-10 text-slate-400 text-sm animate-in fade-in duration-1000 delay-900 mb-12">
+              <div className="flex items-center gap-3 px-3 py-2 rounded-full bg-slate-800/30 border border-slate-700/30">
+                <div className="w-1.5 h-1.5 bg-violet-400 rounded-full"></div>
+                <span>New York City</span>
+              </div>
+              <div className="flex items-center gap-3 px-3 py-2 rounded-full bg-slate-800/30 border border-slate-700/30">
+                <div className="w-1.5 h-1.5 bg-violet-400 rounded-full animate-pulse"></div>
+                <span>Leading Agent Eng @ <a href="https://housekling.com" className="text-slate-300 hover:text-violet-300 transition-colors font-medium">House Kling</a></span>
+              </div>
             </div>
-          </motion.div>
 
-          <motion.div
-            initial={{ y: 20 }}
-            animate={{ y: 0 }}
-            className="pt-4 flex flex-col md:flex-row items-center justify-center gap-4"
-          >
-            <motion.a
-              whileHover={{ scale: 1.02, backgroundColor: 'rgba(255, 255, 255, 0.08)' }}
-              whileTap={{ scale: 0.98 }}
-              href="https://calendly.com/voynow99/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full
-                        bg-white/[0.03] border border-white/10
-                        text-white/80 hover:text-white font-medium
-                        transition-all duration-300 text-lg"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                <line x1="16" y1="2" x2="16" y2="6" />
-                <line x1="8" y1="2" x2="8" y2="6" />
-                <line x1="3" y1="10" x2="21" y2="10" />
-              </svg>
-              Schedule a call
-            </motion.a>
 
-            {/* Container for Chat Button and Arrow */}
-            <div className="relative w-full md:w-auto">
+          </div>
+        </section>
 
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => setIsChatOpen(true)}
-                className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full
-                          bg-indigo-600 text-white font-medium
-                          hover:bg-indigo-500 transition-all duration-300 text-lg"
+        {/* Content Section */}
+        <section className="pt-16 pb-24 px-8 relative">
+          <div className="max-w-6xl mx-auto">
+            <div className="mb-16 text-center">
+              <h3 className="text-3xl font-semibold text-slate-100">Recent Work</h3>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+              {COOL_STUFF.map((item, index) => (
+                <div key={item.title} className="animate-in fade-in slide-in-from-bottom-4 duration-700" style={{ animationDelay: `${index * 200}ms` }}>
+                  <TimelineItem item={item} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="mt-20 relative">
+          <div className="bg-gradient-to-br from-gray-950/90 to-gray-900/90 backdrop-blur-xl border-t border-slate-600/20 p-12 text-center">
+            <div className="mb-8 mt-6">
+              <h3 className="text-2xl font-semibold text-slate-100 mb-4">Let's Connect</h3>
+              <p className="text-slate-300/80 text-lg max-w-2xl mx-auto">
+                Want to chat about AI, agents, or explore collaboration opportunities?
+              </p>
+            </div>
+
+            <div className="flex flex-col items-center justify-center gap-4">
+              <a
+                href="https://twitter.com/jamievoynow"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-violet-500/20 to-blue-500/20 border border-violet-400/30 rounded-full hover:border-violet-400/50 hover:from-violet-500/30 hover:to-blue-500/30 transition-all duration-300"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                <svg className="w-5 h-5 text-violet-300 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                 </svg>
-                Chat with Voynow AI
-              </motion.button>
+                <span className="text-violet-300 group-hover:text-violet-200 font-medium">Let's chat on Twitter</span>
+              </a>
+
+              <a
+                href="https://twitter.com/jamievoynow"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 text-slate-400 hover:text-violet-300 transition-colors"
+              >
+                <span>Follow for live updates</span>
+                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </a>
             </div>
-          </motion.div>
-        </div>
-      </motion.section>
 
-      <section className="py-24 px-6">
-        <div className="space-y-8">
-          {COOL_STUFF.map((item, index) => (
-            <TimelineItem key={item.title} item={item} index={index} />
-          ))}
-        </div>
-      </section>
-
-      <section className="py-36 px-6
-                    bg-indigo-950/50">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="max-w-3xl mx-auto text-center space-y-8"
-        >
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 
-                         bg-clip-text text-transparent">
-            Let&apos;s Build Something Great Together
-          </h2>
-
-          <p className="text-xl text-white/60 leading-relaxed">
-            I help teams ship production-ready AI applications without the complexity.
-            Whether you&apos;re starting from scratch or scaling up, let&apos;s chat.
-          </p>
-
-          <motion.div className="pt-8">
-            <motion.a
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              href="https://calendly.com/voynow99/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-10 py-4 rounded-full
-                        bg-gradient-to-r from-blue-500 to-indigo-500
-                        hover:from-blue-400 hover:to-indigo-400
-                        text-white text-lg font-medium
-                        transition-all duration-300 shadow-lg shadow-indigo-500/20"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                <line x1="16" y1="2" x2="16" y2="6" />
-                <line x1="8" y1="2" x2="8" y2="6" />
-                <line x1="3" y1="10" x2="21" y2="10" />
-              </svg>
-              Schedule a 30-min call
-            </motion.a>
-          </motion.div>
-        </motion.div>
-      </section>
-
-      <footer className="border-t border-white/[0.06] py-12">
-        <div className="max-w-5xl mx-auto px-6 flex flex-col items-center gap-6">
-          <div className="flex gap-8">
-            <a href="https://twitter.com/jamievoynow"
-              className="text-white/40 hover:text-white transition-colors">
-              Twitter
-            </a>
-            <a href="https://github.com/voynow"
-              className="text-white/40 hover:text-white transition-colors">
-              GitHub
-            </a>
+            <div className="mt-12 pt-8">
+              <p className="text-slate-500 text-sm">
+                Building the future of AI agents, one line of code at a time.
+              </p>
+            </div>
           </div>
-          <div className="text-sm text-white/20">
-            © {new Date().getFullYear()} Jamie Voynow
-          </div>
-        </div>
-      </footer>
-
-      <ChatInterface isOpen={isChatOpen} setIsOpen={setIsChatOpen} />
+        </footer>
+      </div>
     </main>
   );
 }
