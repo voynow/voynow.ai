@@ -1,17 +1,19 @@
+import { FaXTwitter, FaGithub, FaLinkedinIn } from "react-icons/fa6";
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#131316] font-[family-name:var(--font-mono)] text-[13px] text-neutral-500">
       <div className="max-w-xl mx-auto px-6 py-16 md:py-24">
         {/* Header */}
         <header className="mb-14">
-          <div className="flex items-baseline justify-between mb-1">
+          <div className="flex items-center justify-between mb-1">
             <h1 className="text-2xl font-bold text-white tracking-tight">
               Jamie Voynow
             </h1>
-            <div className="flex gap-5 text-xs text-neutral-600">
-              <a href="https://x.com/voynow" className="hover:text-emerald-500 transition-colors">x/twitter</a>
-              <a href="https://github.com/voynow" className="hover:text-emerald-500 transition-colors">github</a>
-              <a href="https://www.linkedin.com/in/voynow/" className="hover:text-emerald-500 transition-colors">linkedin</a>
+            <div className="flex gap-4 text-neutral-600">
+              <a href="https://x.com/voynow" className="hover:text-emerald-500 transition-colors"><FaXTwitter size={16} /></a>
+              <a href="https://github.com/voynow" className="hover:text-emerald-500 transition-colors"><FaGithub size={16} /></a>
+              <a href="https://www.linkedin.com/in/voynow/" className="hover:text-emerald-500 transition-colors"><FaLinkedinIn size={16} /></a>
             </div>
           </div>
           <p className="text-xs text-neutral-600">
