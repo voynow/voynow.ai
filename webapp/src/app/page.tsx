@@ -5,7 +5,7 @@ export default function Home() {
         {/* Header */}
         <header className="mb-14">
           <div className="flex items-baseline justify-between mb-1">
-            <h1 className="text-3xl font-bold text-white tracking-tight">
+            <h1 className="text-2xl font-bold text-white tracking-tight">
               Jamie Voynow
             </h1>
             <div className="flex gap-5 text-xs text-neutral-600">
