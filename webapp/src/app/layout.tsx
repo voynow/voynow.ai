@@ -1,38 +1,28 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from 'next/font/google';
+import { IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: '--font-sans',
-  subsets: ['latin'],
-  display: 'swap',
-})
-
-const geistMono = Geist_Mono({
-  variable: '--font-mono',
-  subsets: ['latin'],
-  display: 'swap',
-})
+const mono = IBM_Plex_Mono({
+  variable: "--font-mono",
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "Jamie Voynow",
-  description: "Central hub for Jamie Voynow's work",
-  icons: {
-    icon: '/headshot.jpeg',
-    apple: '/headshot.jpeg',
-  },
+  title: "voynow.ai",
+  description: "AI Agent Engineer",
+  icons: { icon: "/favicon.png" },
 };
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="bg-black">
-      <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-black`}>
-        {children}
-      </body>
+    <html lang="en">
+      <body className={`${mono.variable} antialiased`}>{children}</body>
     </html>
   );
 }
