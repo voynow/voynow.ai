@@ -99,6 +99,18 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <div className="border-t border-neutral-900 mt-14 pt-10">
+          <p className="text-neutral-200 font-semibold text-[15px]">
+            Want to work together?
+          </p>
+          <p className="mt-2 text-neutral-500">
+            DM me on{" "}
+            <a href="https://x.com/voynow" className="text-neutral-300 hover:text-emerald-500 transition-colors">X</a>
+            {" "}or email{" "}
+            <a href="mailto:jamie@voynow.ai" className="text-neutral-300 hover:text-emerald-500 transition-colors">jamie@voynow.ai</a>
+          </p>
+        </div>
       </div>
     </main>
   );
