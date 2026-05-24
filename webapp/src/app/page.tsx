@@ -28,7 +28,7 @@ export default function Home() {
           </h2>
           <p className="leading-relaxed text-neutral-200 font-semibold text-[15px]">
             Currently designing autonomous multi-agent research and trading
-            systems at House Kling.
+            systems at Kling Capital.
           </p>
           <p className="leading-relaxed mt-2 text-neutral-500">
             Agents that generate hypotheses, write code, validate results,
@@ -80,13 +80,13 @@ export default function Home() {
               </ul>
             </div>
 
-            {/* House Kling */}
+            {/* Kling Capital */}
             <div className="border-l-2 border-emerald-500 pl-5">
               <div className="flex justify-between items-baseline mb-3">
                 <p className="text-neutral-200 font-semibold">
                   Lead AI Agent Engineer &middot;{" "}
                   <a href="https://housekling.com" className="hover:text-emerald-500 transition-colors">
-                    House Kling
+                    Kling Capital
                   </a>
                 </p>
                 <p className="text-xs text-neutral-600 whitespace-nowrap ml-4">
