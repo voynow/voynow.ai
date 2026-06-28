@@ -12,3 +12,47 @@ body {
   background: rgba(16, 185, 129, 0.2);
   color: white;
 }
+
+@keyframes bootBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.boot-cursor {
+  animation: bootBlink 1s step-end infinite;
+}
+
+@keyframes bootLoad {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.boot-load {
+  width: 60%;
+  animation: bootLoad 1.3s ease-in-out infinite;
+}
+
+@keyframes bootDots {
+  0% { content: ""; }
+  25% { content: "."; }
+  50% { content: ".."; }
+  75% { content: "..."; }
+  100% { content: ""; }
+}
+
+.boot-dots::after {
+  content: "";
+  animation: bootDots 1.4s steps(1) infinite;
+}
+
+@keyframes bootSpin {
+  to { transform: rotate(360deg); }
+}
+
+.boot-spin {
+  animation: bootSpin 1.1s linear infinite;
+}
+
+.boot-spin-rev {
+  animation: bootSpin 1.6s linear infinite reverse;
+}

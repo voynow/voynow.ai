@@ -1,16 +1,25 @@
 import { FaXTwitter, FaGithub, FaLinkedinIn } from "react-icons/fa6";
+import BootSequence from "./BootSequence";
+import CandleChart from "./CandleChart";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#131316] font-[family-name:var(--font-mono)] text-[13px] text-neutral-500">
-      <div className="max-w-xl mx-auto px-6 py-16 md:py-24">
+    <main className="relative min-h-screen bg-[#131316] font-[family-name:var(--font-mono)] text-[12px] sm:text-[13px] text-neutral-500 break-words">
+      <BootSequence />
+
+      {/* super-subtle live chart backdrop */}
+      <div className="fixed inset-0 z-0 pointer-events-none" style={{ opacity: 0.06 }}>
+        <CandleChart tick={90} />
+      </div>
+
+      <div className="relative z-10 max-w-3xl mx-auto px-5 sm:px-6 py-14 sm:py-20 md:py-24">
         {/* Header */}
-        <header className="mb-14">
-          <div className="flex items-center justify-between mb-1">
-            <h1 className="text-2xl font-bold text-white tracking-tight">
+        <header className="mb-10 sm:mb-14">
+          <div className="flex items-center justify-between gap-4 mb-1">
+            <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
               Jamie Voynow
             </h1>
-            <div className="flex gap-4 text-neutral-600">
+            <div className="flex gap-4 text-neutral-600 shrink-0">
               <a href="https://x.com/voynow" className="hover:text-emerald-500 transition-colors"><FaXTwitter size={16} /></a>
               <a href="https://github.com/voynow" className="hover:text-emerald-500 transition-colors"><FaGithub size={16} /></a>
               <a href="https://www.linkedin.com/in/voynow/" className="hover:text-emerald-500 transition-colors"><FaLinkedinIn size={16} /></a>
@@ -22,11 +31,11 @@ export default function Home() {
         </header>
 
         {/* About */}
-        <section className="mb-14">
+        <section className="mb-10 sm:mb-14">
           <h2 className="text-[10px] text-emerald-500 font-bold tracking-[0.15em] uppercase mb-5">
             About
           </h2>
-          <p className="leading-relaxed text-neutral-200 font-semibold text-[15px]">
+          <p className="leading-relaxed text-neutral-200 font-semibold text-[14px] sm:text-[15px]">
             Currently designing autonomous multi-agent research and trading
             systems at Kling Capital.
           </p>
@@ -44,10 +53,10 @@ export default function Home() {
           <h2 className="text-[10px] text-emerald-500 font-bold tracking-[0.15em] uppercase mb-8">
             Timeline
           </h2>
-          <div className="space-y-10">
+          <div className="space-y-8 sm:space-y-10">
             {/* Kling Capital */}
-            <div className="rounded-lg bg-emerald-500/[0.04] ring-1 ring-emerald-500/10 -mx-4 px-4 py-4">
-              <div className="flex justify-between items-baseline mb-3">
+            <div className="rounded-lg bg-emerald-500/[0.04] ring-1 ring-emerald-500/10 -mx-3 sm:-mx-4 px-3 sm:px-4 py-4">
+              <div className="flex justify-between items-baseline gap-3 mb-3">
                 <p className="text-neutral-200 font-semibold">
                   CTO &middot; Kling Capital
                 </p>
@@ -65,7 +74,7 @@ export default function Home() {
 
             {/* JFK */}
             <div>
-              <div className="flex justify-between items-baseline mb-3">
+              <div className="flex justify-between items-baseline gap-3 mb-3">
                 <p className="text-neutral-200 font-semibold">
                   <a href="https://chatwithjfkfiles.com" className="hover:text-emerald-500 transition-colors">
                     Chat With JFK Files
@@ -84,7 +93,7 @@ export default function Home() {
 
             {/* Cantor */}
             <div>
-              <div className="flex justify-between items-baseline mb-3">
+              <div className="flex justify-between items-baseline gap-3 mb-3">
                 <p className="text-neutral-200 font-semibold">
                   AI Engineer &middot; Cantor Fitzgerald
                 </p>
@@ -101,8 +110,8 @@ export default function Home() {
           </div>
         </section>
 
-        <div className="border-t border-neutral-900 mt-14 pt-10">
-          <p className="text-neutral-200 font-semibold text-[15px]">
+        <div className="border-t border-neutral-900 mt-12 sm:mt-14 pt-10">
+          <p className="text-neutral-200 font-semibold text-[14px] sm:text-[15px]">
             Want to work together?
           </p>
           <p className="mt-2 text-neutral-500">
