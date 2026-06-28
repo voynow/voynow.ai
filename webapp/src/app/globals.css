@@ -5,7 +5,7 @@ html {
 }
 
 body {
-  font-weight: 500;
+  font-weight: 600;
 }
 
 ::selection {
@@ -20,7 +20,7 @@ body {
 
 .content-reveal {
   opacity: 0;
-  animation: contentReveal 0.5s ease-out 0.9s forwards;
+  animation: contentReveal 0.45s ease-out 1.2s forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {
