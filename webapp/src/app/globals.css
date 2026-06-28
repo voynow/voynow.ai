@@ -13,46 +13,19 @@ body {
   color: white;
 }
 
-@keyframes bootBlink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
+@keyframes contentReveal {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-.boot-cursor {
-  animation: bootBlink 1s step-end infinite;
+.content-reveal {
+  opacity: 0;
+  animation: contentReveal 0.5s ease-out 0.9s forwards;
 }
 
-@keyframes bootLoad {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-.boot-load {
-  width: 60%;
-  animation: bootLoad 1.3s ease-in-out infinite;
-}
-
-@keyframes bootDots {
-  0% { content: ""; }
-  25% { content: "."; }
-  50% { content: ".."; }
-  75% { content: "..."; }
-  100% { content: ""; }
-}
-
-.boot-dots::after {
-  content: "";
-  animation: bootDots 1.4s steps(1) infinite;
-}
-
-@keyframes bootSpin {
-  to { transform: rotate(360deg); }
-}
-
-.boot-spin {
-  animation: bootSpin 1.1s linear infinite;
-}
-
-.boot-spin-rev {
-  animation: bootSpin 1.6s linear infinite reverse;
+@media (prefers-reduced-motion: reduce) {
+  .content-reveal {
+    opacity: 1;
+    animation: none;
+  }
 }

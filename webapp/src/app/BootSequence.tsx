@@ -1,12 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import CandleChart from "./CandleChart";
 
 const DURATION = 1000;
 const FADE = 450;
-const STEP = 40; // progress-bar update interval
-const CHART_TICK = 15; // ms per candle
+const STEP = 40;
 
 export default function BootSequence() {
   const [pct, setPct] = useState(0);
@@ -32,27 +30,19 @@ export default function BootSequence() {
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-[#0c0c0e] transition-opacity cursor-pointer overflow-hidden font-[family-name:var(--font-mono)]"
+      className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none transition-opacity font-[family-name:var(--font-mono)]"
       style={{ opacity: fading ? 0 : 1, transitionDuration: `${FADE}ms` }}
-      onClick={() => setFading(true)}
     >
-      <div className="absolute inset-0" style={{ opacity: 0.4, filter: "grayscale(0.45) brightness(0.7)" }}>
-        <CandleChart tick={CHART_TICK} />
-      </div>
-
-      {/* simple loader */}
-      <div className="absolute inset-0 flex items-center justify-center select-none">
-        <div className="w-80 sm:w-[34rem] px-6">
-          <div className="flex justify-between text-[13px] tracking-[0.2em] uppercase text-neutral-400 mb-4">
-            <span>Loading</span>
-            <span className="tabular-nums text-emerald-400">{Math.round(pct)}%</span>
-          </div>
-          <div className="h-3 w-full bg-neutral-800 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-emerald-400 rounded-full transition-[width] duration-150 ease-linear"
-              style={{ width: `${pct}%`, boxShadow: "0 0 16px rgba(52,211,153,0.8)" }}
-            />
-          </div>
+      <div className="w-80 sm:w-[34rem] px-6">
+        <div className="flex justify-between text-[13px] tracking-[0.2em] uppercase text-neutral-400 mb-4">
+          <span>Loading</span>
+          <span className="tabular-nums text-emerald-400">{Math.round(pct)}%</span>
+        </div>
+        <div className="h-3 w-full bg-neutral-800 rounded-full overflow-hidden">
+          <div
+            className="h-full bg-emerald-400 rounded-full transition-[width] duration-150 ease-linear"
+            style={{ width: `${pct}%`, boxShadow: "0 0 16px rgba(52,211,153,0.8)" }}
+          />
         </div>
       </div>
     </div>

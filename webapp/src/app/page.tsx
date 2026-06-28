@@ -1,18 +1,18 @@
 import { FaXTwitter, FaGithub, FaLinkedinIn } from "react-icons/fa6";
 import BootSequence from "./BootSequence";
-import ChartGrid from "./ChartGrid";
+import CandleChart from "./CandleChart";
 
 export default function Home() {
   return (
     <main className="relative min-h-screen bg-[#131316] font-[family-name:var(--font-mono)] text-[12px] sm:text-[13px] text-neutral-500 break-words">
       <BootSequence />
 
-      {/* super-subtle live chart grid backdrop */}
-      <div className="fixed inset-0 z-0 pointer-events-none" style={{ opacity: 0.0525 }}>
-        <ChartGrid />
+      {/* single live chart backdrop — same stream behind loader and content */}
+      <div className="fixed inset-0 z-0 pointer-events-none" style={{ opacity: 0.256, filter: "grayscale(0.45) brightness(0.7)" }}>
+        <CandleChart tick={72} />
       </div>
 
-      <div className="relative z-10 max-w-3xl mx-auto px-5 sm:px-6 py-14 sm:py-20 md:py-24">
+      <div className="content-reveal relative z-10 max-w-3xl mx-auto px-5 sm:px-6 py-14 sm:py-20 md:py-24">
         {/* Header */}
         <header className="mb-10 sm:mb-14">
           <div className="flex items-center justify-between gap-4 mb-1">

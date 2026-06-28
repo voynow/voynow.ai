@@ -16,8 +16,14 @@ const UP = "#3aa386";
 const DOWN = "#b1495d";
 const UP_DIM = "#2f6f5c";
 const DOWN_DIM = "#7d3a48";
+const LONG = "#34d399";
+const SHORT = "#fb7185";
 
-type Candle = { o: number; h: number; l: number; c: number };
+const MARK_EVERY = 20;
+const MARK_NOISE = 10; // spacing varies ±half this
+
+type Mark = "long" | "short" | null;
+type Candle = { o: number; h: number; l: number; c: number; mark: Mark };
 
 const rnd = () => Math.random();
 
@@ -26,18 +32,18 @@ function genCandle(prev: number, vol: number): Candle {
   const c = o + (rnd() - 0.5) * 1845 * vol;
   const h = Math.max(o, c) + rnd() * 338 * vol;
   const l = Math.min(o, c) - rnd() * 338 * vol;
-  return { o, h, l, c };
+  return { o, h, l, c, mark: null };
 }
 
-function genSeries(vol: number, n: number): Candle[] {
-  const arr: Candle[] = [];
-  let p = BASE;
-  for (let i = 0; i < n; i++) {
-    const k = genCandle(p, vol);
-    arr.push(k);
-    p = k.c;
+function range(cs: Candle[]) {
+  let lo = Infinity;
+  let hi = -Infinity;
+  for (const k of cs) {
+    if (k.l < lo) lo = k.l;
+    if (k.h > hi) hi = k.h;
   }
-  return arr;
+  const pad = (hi - lo) * 0.04 || 100;
+  return { lo: lo - pad, hi: hi + pad };
 }
 
 export default function CandleChart({ tick = 60, vol = 1, n = 60 }: { tick?: number; vol?: number; n?: number }) {
@@ -51,38 +57,101 @@ export default function CandleChart({ tick = 60, vol = 1, n = 60 }: { tick?: num
     canvas.width = W;
     canvas.height = H;
 
-    const candles = genSeries(vol, n);
-    const bw = ((CR - CL) / n) * 0.6;
+    const dx = (CR - CL) / n;
+    const bw = dx * 0.6;
+    const ms = dx * 0.55; // marker half-width
+    const mh = dx * 1.05; // marker height
+    const gap = dx * 0.9;
+
+    // candle generator that drops a long/short marker every ~MARK_EVERY bars
+    let countdown = MARK_EVERY + Math.round((rnd() - 0.5) * MARK_NOISE);
+    const makeNext = (prev: number): Candle => {
+      const k = genCandle(prev, vol);
+      if (--countdown <= 0) {
+        k.mark = rnd() > 0.5 ? "long" : "short";
+        countdown = MARK_EVERY + Math.round((rnd() - 0.5) * MARK_NOISE);
+      }
+      return k;
+    };
+
+    const candles: Candle[] = [];
+    let seed = BASE;
+    for (let i = 0; i < n + 2; i++) {
+      const k = makeNext(seed);
+      candles.push(k);
+      seed = k.c;
+    }
+
+    let phase = 0;
+    const r0 = range(candles);
+    let curLo = r0.lo;
+    let curHi = r0.hi;
 
     const draw = () => {
       ctx.clearRect(0, 0, W, H);
-      let lo = Infinity;
-      let hi = -Infinity;
-      for (const k of candles) {
-        if (k.l < lo) lo = k.l;
-        if (k.h > hi) hi = k.h;
-      }
-      const pad = (hi - lo) * 0.04 || 100;
-      lo -= pad;
-      hi += pad;
-      const span = hi - lo || 1;
-      const y = (p: number) => CT + (1 - (p - lo) / span) * (CB - CT);
-      const x = (i: number) => CL + (i / (n - 1)) * (CR - CL);
+      const span = curHi - curLo || 1;
+      const y = (p: number) => CT + (1 - (p - curLo) / span) * (CB - CT);
+      const x = (i: number) => CL + i * dx - phase;
 
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = UP_DIM;
+      ctx.beginPath();
+      for (let i = 0; i < candles.length; i++) {
+        if (candles[i].c < candles[i].o) continue;
+        const cx = x(i);
+        ctx.moveTo(cx, y(candles[i].h));
+        ctx.lineTo(cx, y(candles[i].l));
+      }
+      ctx.stroke();
+      ctx.strokeStyle = DOWN_DIM;
+      ctx.beginPath();
+      for (let i = 0; i < candles.length; i++) {
+        if (candles[i].c >= candles[i].o) continue;
+        const cx = x(i);
+        ctx.moveTo(cx, y(candles[i].h));
+        ctx.lineTo(cx, y(candles[i].l));
+      }
+      ctx.stroke();
+
+      ctx.fillStyle = UP;
+      for (let i = 0; i < candles.length; i++) {
+        if (candles[i].c < candles[i].o) continue;
+        const a = y(candles[i].c);
+        const b = y(candles[i].o);
+        ctx.fillRect(x(i) - bw / 2, Math.min(a, b), bw, Math.max(1, Math.abs(b - a)));
+      }
+      ctx.fillStyle = DOWN;
+      for (let i = 0; i < candles.length; i++) {
+        if (candles[i].c >= candles[i].o) continue;
+        const a = y(candles[i].c);
+        const b = y(candles[i].o);
+        ctx.fillRect(x(i) - bw / 2, Math.min(a, b), bw, Math.max(1, Math.abs(b - a)));
+      }
+
+      // trade markers
       for (let i = 0; i < candles.length; i++) {
         const k = candles[i];
-        const up = k.c >= k.o;
+        if (!k.mark) continue;
         const cx = x(i);
-        ctx.strokeStyle = up ? UP_DIM : DOWN_DIM;
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(cx, y(k.h));
-        ctx.lineTo(cx, y(k.l));
-        ctx.stroke();
-        const top = y(Math.max(k.o, k.c));
-        const bot = y(Math.min(k.o, k.c));
-        ctx.fillStyle = up ? UP : DOWN;
-        ctx.fillRect(cx - bw / 2, top, bw, Math.max(1, bot - top));
+        if (k.mark === "long") {
+          const ty = y(k.l) + gap;
+          ctx.fillStyle = LONG;
+          ctx.beginPath();
+          ctx.moveTo(cx, ty);
+          ctx.lineTo(cx - ms, ty + mh);
+          ctx.lineTo(cx + ms, ty + mh);
+          ctx.closePath();
+          ctx.fill();
+        } else {
+          const ty = y(k.h) - gap;
+          ctx.fillStyle = SHORT;
+          ctx.beginPath();
+          ctx.moveTo(cx, ty);
+          ctx.lineTo(cx - ms, ty - mh);
+          ctx.lineTo(cx + ms, ty - mh);
+          ctx.closePath();
+          ctx.fill();
+        }
       }
     };
 
@@ -92,18 +161,19 @@ export default function CandleChart({ tick = 60, vol = 1, n = 60 }: { tick?: num
 
     let raf = 0;
     let last = 0;
-    let acc = 0;
     const frame = (t: number) => {
-      if (last) acc += t - last;
+      const dt = Math.min(last ? t - last : 0, 50);
       last = t;
-      let steps = 0;
-      while (acc >= tick && steps < 8) {
+      phase += (dt * dx) / tick;
+      while (phase >= dx) {
         candles.shift();
-        candles.push(genCandle(candles[candles.length - 1].c, vol));
-        acc -= tick;
-        steps++;
+        candles.push(makeNext(candles[candles.length - 1].c));
+        phase -= dx;
       }
-      if (steps > 0) draw();
+      const r = range(candles);
+      curLo += (r.lo - curLo) * 0.06;
+      curHi += (r.hi - curHi) * 0.06;
+      draw();
       raf = requestAnimationFrame(frame);
     };
     raf = requestAnimationFrame(frame);
