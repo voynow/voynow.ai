@@ -51,7 +51,7 @@ export default function CandleChart({ tick = 60, vol = 1, n = 60 }: { tick?: num
     canvas.width = W;
     canvas.height = H;
 
-    let candles = genSeries(vol, n);
+    const candles = genSeries(vol, n);
     const bw = ((CR - CL) / n) * 0.6;
 
     const draw = () => {
