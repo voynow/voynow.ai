@@ -17,7 +17,7 @@ export default function Home() {
             </div>
           </div>
           <p className="text-xs text-neutral-600">
-            AI Agent Engineer &middot; NYC
+            New York City
           </p>
         </header>
 
@@ -31,8 +31,9 @@ export default function Home() {
             systems at Kling Capital.
           </p>
           <p className="leading-relaxed mt-2 text-neutral-500">
-            Agents that generate hypotheses, write code, validate results,
-            and compound knowledge across hundreds of iterations.
+            Orchestrating data infrastructure and agents into a single loop
+            that turns raw data into validated signals and live trades &mdash;
+            engineered to be fast, secure, and profitable.
           </p>
         </section>
 
@@ -44,25 +45,26 @@ export default function Home() {
             Timeline
           </h2>
           <div className="space-y-10">
-            {/* Cantor */}
-            <div className="border-l-2 border-neutral-900 pl-5 hover:border-emerald-500/30 transition-colors duration-300">
+            {/* Kling Capital */}
+            <div className="rounded-lg bg-emerald-500/[0.04] ring-1 ring-emerald-500/10 -mx-4 px-4 py-4">
               <div className="flex justify-between items-baseline mb-3">
                 <p className="text-neutral-200 font-semibold">
-                  AI Engineer &middot; Cantor Fitzgerald
+                  CTO &middot; Kling Capital
                 </p>
                 <p className="text-xs text-neutral-600 whitespace-nowrap ml-4">
-                  2024
+                  2025 &ndash;
                 </p>
               </div>
               <ul className="space-y-1.5 text-neutral-500">
-                <li>Led development of agentic text-to-SQL system for brokers</li>
-                <li>Built LLM-as-a-judge evals platform before it was cool</li>
-                <li>Scaled AI extraction platform 100x, saving ~8.5k hours annually</li>
+                <li>Data infrastructure feeding autonomous research agents</li>
+                <li>Live trading across equities, crypto, and options</li>
+                <li>Closing the loop from raw data to production returns</li>
+                <li>Learn more &mdash; <a href="https://klingcapital.com" className="text-neutral-300 hover:text-emerald-500 transition-colors">klingcapital.com</a></li>
               </ul>
             </div>
 
             {/* JFK */}
-            <div className="border-l-2 border-neutral-900 pl-5 hover:border-emerald-500/30 transition-colors duration-300">
+            <div>
               <div className="flex justify-between items-baseline mb-3">
                 <p className="text-neutral-200 font-semibold">
                   <a href="https://chatwithjfkfiles.com" className="hover:text-emerald-500 transition-colors">
@@ -80,23 +82,20 @@ export default function Home() {
               </ul>
             </div>
 
-            {/* Kling Capital */}
-            <div className="border-l-2 border-emerald-500 pl-5">
+            {/* Cantor */}
+            <div>
               <div className="flex justify-between items-baseline mb-3">
                 <p className="text-neutral-200 font-semibold">
-                  Lead AI Agent Engineer &middot;{" "}
-                  <a href="https://housekling.com" className="hover:text-emerald-500 transition-colors">
-                    Kling Capital
-                  </a>
+                  AI Engineer &middot; Cantor Fitzgerald
                 </p>
                 <p className="text-xs text-neutral-600 whitespace-nowrap ml-4">
-                  2025 &ndash;
+                  2024
                 </p>
               </div>
               <ul className="space-y-1.5 text-neutral-500">
-                <li>Autonomous multi-agent systems for quant research</li>
-                <li>Live trading across equities, crypto, and options</li>
-                <li>Long-horizon autonomy, agentic memory, context engineering</li>
+                <li>Led development of agentic text-to-SQL system for brokers</li>
+                <li>Built LLM-as-a-judge evals platform before it was cool</li>
+                <li>Scaled AI extraction platform 100x, saving ~8.5k hours annually</li>
               </ul>
             </div>
           </div>

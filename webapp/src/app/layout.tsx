@@ -11,7 +11,7 @@ const mono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: "voynow.ai",
-  description: "AI Agent Engineer",
+  description: "CTO at Kling Capital",
   icons: { icon: "/favicon.png" },
 };
 
