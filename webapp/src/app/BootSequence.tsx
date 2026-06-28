@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import CandleChart from "./CandleChart";
 
-const DURATION = 2000;
+const DURATION = 1000;
 const FADE = 450;
 const STEP = 40; // progress-bar update interval
 const CHART_TICK = 15; // ms per candle

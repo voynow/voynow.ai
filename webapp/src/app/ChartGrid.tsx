@@ -87,7 +87,7 @@ export default function ChartGrid() {
         return {
           candles,
           vol,
-          tick: 70 + ((i * 37) % 120),
+          tick: (70 + ((i * 37) % 120)) * 2,
           phase: 0,
           lo: r.lo,
           hi: r.hi,
