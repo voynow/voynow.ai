@@ -2,10 +2,10 @@
 
 import { useEffect, useRef } from "react";
 
-const COLS = 340;
-const ROWS = 90;
-const CW = 5;
-const CH = 10;
+const COLS = 250;
+const ROWS = 66;
+const CW = 7;
+const CH = 14;
 const INK = "#5c5c68";
 const FRAME_MS = 40;
 const FLOW = 0.02;
