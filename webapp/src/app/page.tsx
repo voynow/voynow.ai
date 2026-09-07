@@ -1,130 +1,103 @@
 import { FaXTwitter, FaGithub, FaLinkedinIn } from "react-icons/fa6";
-import BootSequence from "./BootSequence";
-import CandleChart from "./CandleChart";
+import AsciiField from "./AsciiField";
+
+const link = "hover:text-link transition-colors";
+
+const timeline = [
+  {
+    title: "CTO, Kling Capital",
+    href: "https://klingcapital.com",
+    date: "2025 —",
+    current: true,
+    points: [
+      "Data infrastructure feeding autonomous research agents",
+      "Live trading across equities, crypto, and options",
+      "Closing the loop from raw data to production returns",
+    ],
+  },
+  {
+    title: "Chat With JFK Files",
+    href: "https://chatwithjfkfiles.com",
+    date: "Mar 2025",
+    current: false,
+    points: [
+      "Built and launched within hours of the news dropping",
+      "20k users overnight, went viral on X, millions of tokens processed",
+    ],
+  },
+  {
+    title: "AI Engineer, Cantor Fitzgerald",
+    href: null,
+    date: "2024",
+    current: false,
+    points: [
+      "Led development of agentic text-to-SQL system for brokers",
+      "Built LLM-as-a-judge evals platform before it was cool",
+      "Scaled AI extraction platform 100x, saving ~8.5k hours annually",
+    ],
+  },
+];
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-[#131316] font-[family-name:var(--font-mono)] text-[12px] sm:text-[13px] text-neutral-300 break-words">
-      <BootSequence />
-
-      {/* single live chart backdrop — same stream behind loader and content */}
-      <div className="fixed inset-0 z-0 pointer-events-none" style={{ opacity: 0.256, filter: "grayscale(0.45) brightness(0.56)" }}>
-        <CandleChart tick={144} n={65} />
+    <main className="relative min-h-screen bg-bg-0 text-[13px] sm:text-[14px] font-semibold text-text-2 break-words">
+      <div className="fixed inset-0 z-0 pointer-events-none" style={{ opacity: 0.32 }}>
+        <AsciiField />
       </div>
 
-      <div className="content-reveal relative z-10 max-w-3xl mx-auto px-5 sm:px-6 py-14 sm:py-20 md:py-24">
-        {/* Header */}
-        <header className="mb-10 sm:mb-14">
-          <div className="flex items-center justify-between gap-4 mb-1">
-            <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+      <div className="relative z-10 min-h-screen flex flex-col justify-center max-w-2xl mx-auto px-5 sm:px-6 py-6">
+        <header className="mb-8">
+          <div className="flex items-baseline justify-between gap-4">
+            <h1 className="text-[22px] font-bold text-text-1 tracking-[-0.01em]">
               Jamie Voynow
             </h1>
-            <div className="flex gap-4 text-neutral-500 shrink-0">
-              <a href="https://x.com/voynow" className="hover:text-emerald-500 transition-colors"><FaXTwitter size={16} /></a>
-              <a href="https://github.com/voynow" className="hover:text-emerald-500 transition-colors"><FaGithub size={16} /></a>
-              <a href="https://www.linkedin.com/in/voynow/" className="hover:text-emerald-500 transition-colors"><FaLinkedinIn size={16} /></a>
+            <div className="flex gap-4 text-text-3 shrink-0">
+              <a href="https://x.com/voynow" className="hover:text-link transition-colors"><FaXTwitter size={15} /></a>
+              <a href="https://github.com/voynow" className="hover:text-link transition-colors"><FaGithub size={15} /></a>
+              <a href="https://www.linkedin.com/in/voynow/" className="hover:text-link transition-colors"><FaLinkedinIn size={15} /></a>
             </div>
           </div>
-          <p className="text-xs text-neutral-500">
-            New York City
-          </p>
+          <div className="mono mt-3 flex flex-wrap items-center gap-x-4 text-[12px] text-text-3">
+            <span>CTO, Kling Capital</span>
+            <span>New York City</span>
+          </div>
         </header>
 
-        {/* About */}
-        <section className="mb-10 sm:mb-14">
-          <h2 className="text-[10px] text-emerald-500 font-bold tracking-[0.15em] uppercase mb-5">
-            About
-          </h2>
-          <p className="leading-relaxed text-white font-bold text-[14px] sm:text-[15px]">
+        <section className="mb-8">
+          <p className="label mb-4">About</p>
+          <p className="text-text-1 font-bold text-[15px] sm:text-[16px] leading-snug">
             Currently building an AI-native hedge fund from the ground up.
           </p>
-          <p className="leading-relaxed mt-2 text-neutral-300">
-            Most funds are weighed down by what made them. The principles I am
-            betting on:
+          <p className="mt-2 leading-normal">
+            Most funds are weighed down by what made them. The principles I am betting on:
           </p>
-          <ul className="mt-3 space-y-1.5 text-neutral-300 list-disc list-inside marker:text-neutral-500">
-            <li>Building for agents first</li>
-            <li>Complex infrastructure with simple interfaces</li>
-            <li>Information flywheels that compound</li>
-            <li>Tied together by real market taste</li>
+          <ul className="mt-2 space-y-1 list-disc pl-5 marker:text-text-4">
+            {["Building for agents first", "Complex infrastructure with simple interfaces", "Information flywheels that compound", "Tied together by real market taste"].map((p) => (
+              <li key={p}>{p}</li>
+            ))}
           </ul>
         </section>
 
-        <div className="border-t border-neutral-900 mb-10" />
-
-        {/* Timeline */}
         <section>
-          <h2 className="text-[10px] text-emerald-500 font-bold tracking-[0.15em] uppercase mb-8">
-            Timeline
-          </h2>
-          <div className="space-y-8 sm:space-y-10">
-            {/* Kling Capital */}
-            <div className="rounded-lg bg-emerald-500/[0.04] ring-1 ring-emerald-500/10 -mx-3 sm:-mx-4 px-3 sm:px-4 py-4">
-              <div className="flex justify-between items-baseline gap-3 mb-3">
-                <p className="text-white font-bold">
-                  CTO &middot; Kling Capital
-                </p>
-                <p className="text-xs text-neutral-500 whitespace-nowrap ml-4">
-                  2025 &ndash;
-                </p>
+          <p className="label mb-4">Timeline</p>
+          <div className="space-y-2">
+            {timeline.map((t) => (
+              <div key={t.title} className="grid grid-cols-[1fr_auto] gap-x-6 py-3">
+                <div>
+                  <p className="text-text-1 font-semibold">
+                    {t.href ? <a href={t.href} className={link}>{t.title}</a> : t.title}
+                  </p>
+                  <ul className="mt-1.5 space-y-1 list-disc pl-5 marker:text-text-4">
+                    {t.points.map((p) => (
+                      <li key={p}>{p}</li>
+                    ))}
+                  </ul>
+                </div>
+                <p className="mono text-[12px] text-text-3 text-right whitespace-nowrap pt-0.5">{t.date}</p>
               </div>
-              <ul className="space-y-1.5 text-neutral-300 list-disc list-inside marker:text-neutral-500">
-                <li>Data infrastructure feeding autonomous research agents</li>
-                <li>Live trading across equities, crypto, and options</li>
-                <li>Closing the loop from raw data to production returns</li>
-                <li>Learn more &mdash; <a href="https://klingcapital.com" className="text-neutral-300 hover:text-emerald-500 transition-colors">klingcapital.com</a></li>
-              </ul>
-            </div>
-
-            {/* JFK */}
-            <div>
-              <div className="flex justify-between items-baseline gap-3 mb-3">
-                <p className="text-white font-bold">
-                  <a href="https://chatwithjfkfiles.com" className="hover:text-emerald-500 transition-colors">
-                    Chat With JFK Files
-                  </a>
-                </p>
-                <p className="text-xs text-neutral-500 whitespace-nowrap ml-4">
-                  Mar 2025
-                </p>
-              </div>
-              <ul className="space-y-1.5 text-neutral-300 list-disc list-inside marker:text-neutral-500">
-                <li>Built and launched within hours of the news dropping</li>
-                <li>20k users overnight, went viral on X, millions of tokens processed</li>
-                <li>Try it yourself &mdash; <a href="https://chatwithjfkfiles.com" className="text-neutral-300 hover:text-emerald-500 transition-colors">chatwithjfkfiles.com</a></li>
-              </ul>
-            </div>
-
-            {/* Cantor */}
-            <div>
-              <div className="flex justify-between items-baseline gap-3 mb-3">
-                <p className="text-white font-bold">
-                  AI Engineer &middot; Cantor Fitzgerald
-                </p>
-                <p className="text-xs text-neutral-500 whitespace-nowrap ml-4">
-                  2024
-                </p>
-              </div>
-              <ul className="space-y-1.5 text-neutral-300 list-disc list-inside marker:text-neutral-500">
-                <li>Led development of agentic text-to-SQL system for brokers</li>
-                <li>Built LLM-as-a-judge evals platform before it was cool</li>
-                <li>Scaled AI extraction platform 100x, saving ~8.5k hours annually</li>
-              </ul>
-            </div>
+            ))}
           </div>
         </section>
-
-        <div className="border-t border-neutral-900 mt-12 sm:mt-14 pt-10">
-          <p className="text-white font-bold text-[14px] sm:text-[15px]">
-            Want to work together?
-          </p>
-          <p className="mt-2 text-neutral-300">
-            DM me on{" "}
-            <a href="https://x.com/voynow" className="text-neutral-300 hover:text-emerald-500 transition-colors">X</a>
-            {" "}or email{" "}
-            <a href="mailto:jamie@voynow.ai" className="text-neutral-300 hover:text-emerald-500 transition-colors">jamie@voynow.ai</a>
-          </p>
-        </div>
       </div>
     </main>
   );

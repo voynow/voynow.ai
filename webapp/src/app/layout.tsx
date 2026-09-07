@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono } from "next/font/google";
+import { Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
+const sans = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 const mono = IBM_Plex_Mono({
-  variable: "--font-mono",
-  weight: ["400", "500", "600", "700"],
+  variable: "--font-plex",
+  weight: ["400", "500"],
   subsets: ["latin"],
   display: "swap",
 });
@@ -22,7 +28,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${mono.variable} antialiased`}>{children}</body>
+      <body className={`${sans.variable} ${mono.variable} antialiased`}>{children}</body>
     </html>
   );
 }

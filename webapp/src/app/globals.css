@@ -1,31 +1,42 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex), ui-monospace, monospace;
+
+  --color-bg-0: #0e0e11;
+  --color-bg-1: #131316;
+  --color-line: #1f1f24;
+  --color-text-1: #f4f4f6;
+  --color-text-2: #c4c4cc;
+  --color-text-3: #7c7c88;
+  --color-text-4: #4b4b56;
+  --color-link: #3aa386;
+}
+
 html {
-  background: #131316;
+  background: var(--color-bg-0);
 }
 
 body {
-  font-weight: 600;
+  font-family: var(--font-sans);
+  font-feature-settings: "cv11", "ss01";
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-3);
 }
 
 ::selection {
-  background: rgba(16, 185, 129, 0.2);
+  background: rgba(255, 255, 255, 0.18);
   color: white;
-}
-
-@keyframes contentReveal {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.content-reveal {
-  opacity: 0;
-  animation: contentReveal 0.45s ease-out 1.2s forwards;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .content-reveal {
-    opacity: 1;
-    animation: none;
-  }
 }

@@ -4,24 +4,21 @@ import { useEffect, useRef } from "react";
 
 const BASE = 64000;
 
-// virtual canvas resolution
-const W = 600;
-const H = 380;
-const CT = 10;
-const CB = 370;
-const CL = 4;
-const CR = 596;
+// character grid; the chart is rasterized offscreen at this resolution and each pixel becomes one glyph
+const COLS = 220;
+const ROWS = 84;
+const CW = 6;
+const CH = 10;
+const W = COLS * CW;
+const H = ROWS * CH;
 
-const UP = "#3aa386";
-const DOWN = "#b1495d";
-const UP_DIM = "#2f6f5c";
-const DOWN_DIM = "#7d3a48";
-const LONG = "#34d399";
-const SHORT = "#fb7185";
+const RAMP = " .:-=zk#@";
+const INK = "#80808c";
+const GLOW_UP = "rgba(58,163,134,0.9)";
+const GLOW_DOWN = "rgba(177,73,93,0.9)";
 
 const MARK_EVERY = 20;
 const MARK_NOISE = 10; // spacing varies ±half this
-
 const MA_PERIOD = 50;
 
 type Mark = "long" | "short" | null;
@@ -59,14 +56,16 @@ export default function CandleChart({ tick = 60, vol = 1, n = 60 }: { tick?: num
     canvas.width = W;
     canvas.height = H;
 
-    const dx = (CR - CL) / n;
-    const bw = dx * 0.6;
-    const WARM = MA_PERIOD - 1; // off-screen history so the MA spans the full width
-    const ms = dx * 0.55; // marker half-width
-    const mh = dx * 1.05; // marker height
-    const gap = dx * 0.9;
+    const off = document.createElement("canvas");
+    off.width = COLS;
+    off.height = ROWS;
+    const octx = off.getContext("2d", { willReadFrequently: true });
+    if (!octx) return;
 
-    // candle generator that drops a long/short marker every ~MARK_EVERY bars
+    const dx = COLS / n;
+    const bw = Math.max(1, Math.round(dx * 0.5));
+    const WARM = MA_PERIOD - 1; // off-screen history so the MA spans the full width
+
     let countdown = MARK_EVERY + Math.round((rnd() - 0.5) * MARK_NOISE);
     const makeNext = (prev: number): Candle => {
       const k = genCandle(prev, vol);
@@ -90,89 +89,57 @@ export default function CandleChart({ tick = 60, vol = 1, n = 60 }: { tick?: num
     let curLo = r0.lo;
     let curHi = r0.hi;
 
-    const draw = () => {
-      ctx.clearRect(0, 0, W, H);
+    const raster = () => {
+      octx.clearRect(0, 0, COLS, ROWS);
       const span = curHi - curLo || 1;
-      const y = (p: number) => CT + (1 - (p - curLo) / span) * (CB - CT);
-      const x = (i: number) => CL + (i - WARM) * dx - phase;
+      const y = (p: number) => 1 + (1 - (p - curLo) / span) * (ROWS - 2);
+      const x = (i: number) => (i - WARM) * dx - phase;
 
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = UP_DIM;
-      ctx.beginPath();
       for (let i = 0; i < candles.length; i++) {
-        if (candles[i].c < candles[i].o) continue;
+        const k = candles[i];
+        const up = k.c >= k.o;
         const cx = x(i);
-        ctx.moveTo(cx, y(candles[i].h));
-        ctx.lineTo(cx, y(candles[i].l));
-      }
-      ctx.stroke();
-      ctx.strokeStyle = DOWN_DIM;
-      ctx.beginPath();
-      for (let i = 0; i < candles.length; i++) {
-        if (candles[i].c >= candles[i].o) continue;
-        const cx = x(i);
-        ctx.moveTo(cx, y(candles[i].h));
-        ctx.lineTo(cx, y(candles[i].l));
-      }
-      ctx.stroke();
-
-      ctx.fillStyle = UP;
-      for (let i = 0; i < candles.length; i++) {
-        if (candles[i].c < candles[i].o) continue;
-        const a = y(candles[i].c);
-        const b = y(candles[i].o);
-        ctx.fillRect(x(i) - bw / 2, Math.min(a, b), bw, Math.max(1, Math.abs(b - a)));
-      }
-      ctx.fillStyle = DOWN;
-      for (let i = 0; i < candles.length; i++) {
-        if (candles[i].c >= candles[i].o) continue;
-        const a = y(candles[i].c);
-        const b = y(candles[i].o);
-        ctx.fillRect(x(i) - bw / 2, Math.min(a, b), bw, Math.max(1, Math.abs(b - a)));
+        octx.fillStyle = up ? "rgba(0,255,0,0.45)" : "rgba(255,0,0,0.45)";
+        octx.fillRect(cx, y(k.h), 1, Math.max(1, y(k.l) - y(k.h)));
+        octx.fillStyle = up ? "rgba(0,255,0,1)" : "rgba(255,0,0,1)";
+        const a = y(k.o);
+        const b = y(k.c);
+        octx.fillRect(cx - bw / 2, Math.min(a, b), bw, Math.max(1, Math.abs(b - a)));
+        if (k.mark) {
+          octx.fillStyle = k.mark === "long" ? "rgba(0,255,0,1)" : "rgba(255,0,0,1)";
+          octx.fillRect(cx - 1, k.mark === "long" ? y(k.l) + 2 : y(k.h) - 3, 3, 1);
+        }
       }
 
-      // moving average
-      ctx.strokeStyle = "rgba(150,194,255,0.95)";
-      ctx.lineWidth = 1.6;
-      ctx.beginPath();
-      let maStarted = false;
+      octx.fillStyle = "rgba(255,255,255,0.6)";
       for (let i = MA_PERIOD - 1; i < candles.length; i++) {
         let sum = 0;
         for (let j = i - MA_PERIOD + 1; j <= i; j++) sum += candles[j].c;
-        const px = x(i);
-        const py = y(sum / MA_PERIOD);
-        if (!maStarted) {
-          ctx.moveTo(px, py);
-          maStarted = true;
-        } else {
-          ctx.lineTo(px, py);
-        }
+        octx.fillRect(x(i), y(sum / MA_PERIOD), 1, 1);
       }
-      ctx.stroke();
+    };
 
-      // trade markers
-      for (let i = 0; i < candles.length; i++) {
-        const k = candles[i];
-        if (!k.mark) continue;
-        const cx = x(i);
-        if (k.mark === "long") {
-          const ty = y(k.l) + gap;
-          ctx.fillStyle = LONG;
-          ctx.beginPath();
-          ctx.moveTo(cx, ty);
-          ctx.lineTo(cx - ms, ty + mh);
-          ctx.lineTo(cx + ms, ty + mh);
-          ctx.closePath();
-          ctx.fill();
-        } else {
-          const ty = y(k.h) - gap;
-          ctx.fillStyle = SHORT;
-          ctx.beginPath();
-          ctx.moveTo(cx, ty);
-          ctx.lineTo(cx - ms, ty - mh);
-          ctx.lineTo(cx + ms, ty - mh);
-          ctx.closePath();
-          ctx.fill();
+    const draw = () => {
+      raster();
+      const px = octx.getImageData(0, 0, COLS, ROWS).data;
+      ctx.clearRect(0, 0, W, H);
+      ctx.font = `${CH - 1}px ui-monospace, Menlo, monospace`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.shadowBlur = 14;
+      for (let r = 0; r < ROWS; r++) {
+        for (let c = 0; c < COLS; c++) {
+          const o = (r * COLS + c) * 4;
+          const a = px[o + 3] / 255;
+          if (a < 0.08) continue;
+          const g = px[o + 1];
+          const rd = px[o];
+          const b = px[o + 2];
+          const neutral = b > 0;
+          const ch = RAMP[Math.min(RAMP.length - 1, Math.floor(a * (RAMP.length - 1) + 0.5))];
+          ctx.shadowColor = neutral ? "transparent" : g > rd ? GLOW_UP : GLOW_DOWN;
+          ctx.fillStyle = INK;
+          ctx.fillText(ch, c * CW + CW / 2, r * CH + CH / 2);
         }
       }
     };
