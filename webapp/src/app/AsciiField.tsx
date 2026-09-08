@@ -2,14 +2,15 @@
 
 import { useEffect, useRef } from "react";
 
-const COLS = 250;
-const ROWS = 66;
-const CW = 7;
-const CH = 14;
+const CELL_W = 7;
+const CELL_H = 14;
 const INK = "#5c5c68";
 const FRAME_MS = 40;
 const FLOW = 0.02;
 const RISE = 0.6;
+// field is defined in these pixel units so landmasses keep their size on any viewport
+const REF_W = 1750;
+const REF_H = 924;
 
 // 2d blobs anchored at or below the bottom edge; contour bands of their sum become the shoreline
 const blobs = [
@@ -47,16 +48,32 @@ export default function AsciiField() {
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-    canvas.width = COLS * CW;
-    canvas.height = ROWS * CH;
-    ctx.font = `${CH - 2}px ui-monospace, Menlo, monospace`;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillStyle = INK;
+    let COLS = 1;
+    let ROWS = 1;
+    let CW = CELL_W;
+    let CH = CELL_H;
+    let scale = 1;
+    const fit = () => {
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      scale = Math.max(0.5, Math.min(1, canvas.clientWidth / REF_W));
+      CW = CELL_W * scale;
+      CH = CELL_H * scale;
+      COLS = Math.ceil(canvas.clientWidth / CW);
+      ROWS = Math.ceil(canvas.clientHeight / CH);
+      canvas.width = Math.round(COLS * CW * dpr);
+      canvas.height = Math.round(ROWS * CH * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.font = `${CH - 2 * scale}px ui-monospace, Menlo, monospace`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = INK;
+    };
+    fit();
+    window.addEventListener("resize", fit);
 
     const draw = (t: number) => {
       const s = t / 1000;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, COLS * CW, ROWS * CH);
       const live = blobs.map((b) => {
         const cx = (((b.cx + s * b.speed * FLOW) % 1) + 1) % 1;
         const cy = (((b.cy + s * b.speed * FLOW * RISE) % 1) + 1) % 1;
@@ -65,9 +82,9 @@ export default function AsciiField() {
       });
       const shift = s * FLOW;
       for (let r = 0; r < ROWS; r++) {
-        const y = 1 - r / ROWS;
+        const y = 1 - (r * CH) / (REF_H * scale);
         for (let c = 0; c < COLS; c++) {
-          const x = c / COLS;
+          const x = (c * CW) / (REF_W * scale);
           const nx = x - shift;
           const ny = y - shift * RISE;
           const rough =
@@ -89,7 +106,7 @@ export default function AsciiField() {
     };
 
     draw(0);
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return () => window.removeEventListener("resize", fit);
 
     let raf = 0;
     let last = 0;
@@ -101,7 +118,10 @@ export default function AsciiField() {
       raf = requestAnimationFrame(frame);
     };
     raf = requestAnimationFrame(frame);
-    return () => cancelAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", fit);
+    };
   }, []);
 
   return <canvas ref={canvasRef} className="h-full w-full" style={{ display: "block" }} />;
