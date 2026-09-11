@@ -2,42 +2,54 @@
 
 import { useEffect, useRef } from "react";
 
-const CELL_W = 7;
-const CELL_H = 14;
-const INK = "#5c5c68";
+const CELL_W = 6;
+const CELL_H = 11;
+const INK = "#32323b";
 const FRAME_MS = 40;
-const FLOW = 0.02;
-const RISE = 0.6;
-// field is defined in these pixel units so landmasses keep their size on any viewport
+const FLOW = 0.012;
+const RISE = 0.7;
+// field is defined in these pixel units so blocks keep their size on any viewport
 const REF_W = 1750;
 const REF_H = 924;
+const ASPECT = REF_H / REF_W;
 
-// 2d blobs anchored at or below the bottom edge; contour bands of their sum become the shoreline
-const blobs = [
-  { cx: 0.02, cy: -0.05, wx: 0.3, wy: 1.5, a: 1.0, speed: 0.9, phase: 0 },
-  { cx: 0.2, cy: -0.15, wx: 0.22, wy: 1.0, a: 0.75, speed: 1.3, phase: 2.1 },
-  { cx: 0.38, cy: -0.1, wx: 0.24, wy: 1.2, a: 0.85, speed: 1.1, phase: 4.2 },
-  { cx: 0.55, cy: -0.08, wx: 0.2, wy: 1.1, a: 0.8, speed: 1.2, phase: 0.7 },
-  { cx: 0.72, cy: -0.12, wx: 0.24, wy: 1.3, a: 0.9, speed: 1.0, phase: 3.3 },
-  { cx: 0.9, cy: -0.02, wx: 0.3, wy: 1.5, a: 1.0, speed: 0.8, phase: 1.3 },
+// each layer is a lattice of candidate blocks; smaller blocks drift faster for parallax
+const layers = [
+  { size: 0.17, speed: 1.0, fill: 0.36, seed: 11 },
+  { size: 0.09, speed: 1.8, fill: 0.28, seed: 29 },
+  { size: 0.045, speed: 2.9, fill: 0.14, seed: 47 },
 ];
 
-const SHORE = "~~~~-≈_~";
-const MID = "=+:;/\\|=";
-const DEEP = "..·,'`.. ";
-const HEX = "0123456789abcdef";
+const EDGE = "─│┌┐└┘├┤┬┴┼═║";
+const DENSE = "╱╲┼≡≠+×∷#%";
+const SPARSE = "·.,'`˙°∘";
+const RARE = "αβγδλμπσφψΩ∂∑√∞∫";
 
-const hash = (c: number, r: number) => {
-  const x = Math.sin(c * 127.1 + r * 311.7) * 43758.5453;
+const hash = (a: number, b: number) => {
+  const x = Math.sin(a * 127.1 + b * 311.7) * 43758.5453;
   return x - Math.floor(x);
 };
 
-const glyph = (v: number, c: number, r: number) => {
-  const h = hash(c, r);
-  if (v > 0.82) return h < 0.06 ? HEX[Math.floor(hash(r, c) * 16)] : DEEP[Math.floor(h * DEEP.length)];
-  if (v > 0.64) return MID[Math.floor(h * MID.length)];
-  if (v > 0.47) return SHORE[Math.floor(h * SHORE.length)];
-  return "";
+const pick = (set: string, c: number, r: number) => set[Math.floor(hash(c, r) * set.length)];
+
+// 0 empty, 1 edge, 2 dense, 3 sparse
+const sample = (x: number, y: number, s: number) => {
+  let kind = 0;
+  for (const L of layers) {
+    const u = x - s * FLOW * L.speed;
+    const v = y * ASPECT - s * FLOW * RISE * L.speed;
+    const i = Math.floor(u / L.size);
+    const j = Math.floor(v / L.size);
+    if (hash(i + L.seed, j - L.seed) > L.fill) continue;
+    const fx = u / L.size - i;
+    const fy = v / L.size - j;
+    const m = 0.06 + 0.12 * hash(j + L.seed, i);
+    const inner = Math.min(fx - m, 1 - m - fx, fy - m, 1 - m - fy);
+    if (inner < 0) continue;
+    const edge = 0.9 / ((L.size * REF_W) / CELL_W);
+    kind = inner < edge ? 1 : hash(i * 3 + L.seed, j * 7) < 0.55 ? 2 : 3;
+  }
+  return kind;
 };
 
 export default function AsciiField() {
@@ -74,33 +86,17 @@ export default function AsciiField() {
     const draw = (t: number) => {
       const s = t / 1000;
       ctx.clearRect(0, 0, COLS * CW, ROWS * CH);
-      const live = blobs.map((b) => {
-        const cx = (((b.cx + s * b.speed * FLOW) % 1) + 1) % 1;
-        const cy = (((b.cy + s * b.speed * FLOW * RISE) % 1) + 1) % 1;
-        const swell = 0.55 + 0.45 * Math.sin(cx * Math.PI * 2 * 1.5 + b.phase);
-        return { ...b, cx, cy, wy: b.wy * swell };
-      });
-      const shift = s * FLOW;
       for (let r = 0; r < ROWS; r++) {
         const y = 1 - (r * CH) / (REF_H * scale);
         for (let c = 0; c < COLS; c++) {
           const x = (c * CW) / (REF_W * scale);
-          const nx = x - shift;
-          const ny = y - shift * RISE;
-          const rough =
-            0.09 * Math.sin(nx * 41 + ny * 23) * Math.cos(ny * 37 - nx * 17) +
-            0.06 * Math.sin(nx * 97 - ny * 61) +
-            0.05 * Math.sin(ny * 131 + nx * 53) * Math.sin(nx * 29);
-          let v = 0;
-          for (const b of live) {
-            const raw = x - b.cx;
-            const dx = (raw - Math.round(raw)) / b.wx;
-            const rawY = y - b.cy;
-            const dy = (rawY - Math.round(rawY)) / b.wy;
-            v = Math.max(v, b.a * Math.exp(-(dx * dx + dy * dy)));
-          }
-          const ch = glyph(0.5 + 0.42 * v + rough, c, r);
-          if (ch && ch !== " ") ctx.fillText(ch, c * CW + CW / 2, r * CH + CH / 2);
+          const kind = sample(x, y, s);
+          let ch = "";
+          if (kind === 1) ch = pick(EDGE, c, r);
+          else if (kind === 2) ch = hash(r, c) < 0.05 ? pick(RARE, c, r) : pick(DENSE, c, r);
+          else if (kind === 3) ch = hash(c, r) < 0.6 ? pick(SPARSE, c, r) : "";
+          else if (hash(c, r) < 0.03) ch = "·";
+          if (ch) ctx.fillText(ch, c * CW + CW / 2, r * CH + CH / 2);
         }
       }
     };

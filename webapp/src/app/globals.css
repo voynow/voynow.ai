@@ -1,26 +1,31 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-plex), ui-monospace, monospace;
+  --font-sans: var(--font-sans-src), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-src), ui-monospace, Menlo, monospace;
 
-  --color-bg-0: #0e0e11;
-  --color-bg-1: #131316;
-  --color-line: #1f1f24;
-  --color-text-1: #f4f4f6;
-  --color-text-2: #c4c4cc;
-  --color-text-3: #7c7c88;
-  --color-text-4: #4b4b56;
-  --color-link: #3aa386;
+  --color-bg: #1a1a1f;
+  --color-line: #1c1c21;
+  --color-text-1: #ffffff;
+  --color-text-2: #e4e4ea;
+  --color-text-3: #b4b4c0;
+  --color-accent: #3aa386;
+}
+
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 html {
-  background: var(--color-bg-0);
+  background: var(--color-bg);
+  color-scheme: dark;
 }
 
 body {
   font-family: var(--font-sans);
-  font-feature-settings: "cv11", "ss01";
+  font-feature-settings: "ss01", "cv11";
+  text-rendering: optimizeLegibility;
+  font-weight: 500;
 }
 
 .mono {
@@ -29,14 +34,95 @@ body {
 }
 
 .label {
+  font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-text-3);
 }
 
+.field {
+  opacity: 0.55;
+  animation: field-in 600ms var(--ease-out) both;
+}
+@keyframes field-in {
+  from { opacity: 0; }
+  to { opacity: 0.55; }
+}
+
+.link {
+  display: inline-block;
+  color: var(--color-text-2);
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.28);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 160ms ease, text-decoration-color 160ms ease, transform 160ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .link:hover {
+    color: var(--color-text-1);
+    text-decoration-color: var(--color-text-1);
+  }
+}
+.link:active {
+  transform: scale(0.97);
+}
+.link:focus-visible {
+  outline: 1px solid var(--color-text-3);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.icon {
+  display: inline-flex;
+  padding: 6px;
+  margin: -6px;
+  border-radius: 6px;
+  color: var(--color-text-3);
+  background: rgba(255, 255, 255, 0);
+  -webkit-tap-highlight-color: transparent;
+  transition: color 160ms ease, background-color 160ms ease, transform 160ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .icon:hover {
+    color: var(--color-text-1);
+    background: rgba(255, 255, 255, 0.07);
+    transform: translateY(-1px);
+  }
+}
+.icon:active {
+  transform: scale(0.94);
+}
+.icon:focus-visible {
+  outline: 1px solid var(--color-text-3);
+  outline-offset: 2px;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: reveal 400ms var(--ease-out) forwards;
+  animation-delay: calc(var(--i, 0) * 60ms + 80ms);
+}
+@keyframes reveal {
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transform: none;
+    animation: fade 200ms ease forwards;
+  }
+  .field {
+    animation: none;
+  }
+  @keyframes fade {
+    to { opacity: 1; }
+  }
+}
+
 ::selection {
-  background: rgba(255, 255, 255, 0.18);
-  color: white;
+  background: rgba(58, 163, 134, 0.35);
+  color: #fff;
 }
