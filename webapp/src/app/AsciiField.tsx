@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 const CELL_W = 6;
 const CELL_H = 11;
-const INK = "#32323b";
+const INK = "#6e6e7c";
 const FRAME_MS = 40;
 const FLOW = 0.012;
 const RISE = 0.7;

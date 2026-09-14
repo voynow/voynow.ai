@@ -42,12 +42,12 @@ body {
 }
 
 .field {
-  opacity: 0.55;
+  opacity: 0.8;
   animation: field-in 600ms var(--ease-out) both;
 }
 @keyframes field-in {
   from { opacity: 0; }
-  to { opacity: 0.55; }
+  to { opacity: 0.8; }
 }
 
 .link {
