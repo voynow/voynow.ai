@@ -43,7 +43,7 @@ const timeline = [
     date: "2025 —",
     points: [
       "Built a coding-agent quant research platform that actually works",
-      "Built a portfolio to 9 figures in monthly volume on 100% agentically derived strategies",
+      "Scaled a portfolio to over half a billion in monthly volume on 100% agentically derived strategies",
       <span key="hiring">
         I am looking for talented folks to{" "}
         <a href="https://klingcapital.com/careers" className="link">join our growing team</a>
